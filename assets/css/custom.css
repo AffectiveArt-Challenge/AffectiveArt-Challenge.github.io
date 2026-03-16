@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Lato:wght@400;700&display=swap');
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Lato', sans-serif !important;
   color: #333;
 }
 h1, h2, h3, h4, h5, h6, .navbar a, .logo h1 {
@@ -47,6 +47,7 @@ h1, h2, h3, h4, h5, h6, .navbar a, .logo h1 {
     z-index: 2;
 }
 #hero h1 {
+  font-family: 'Lato', sans-serif;
   font-size: 64px;
   font-weight: 800;
   letter-spacing: -1.5px;
@@ -56,16 +57,15 @@ h1, h2, h3, h4, h5, h6, .navbar a, .logo h1 {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: fadeInUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) both;
 }
 #hero h2 {
+  font-family: 'Lato', sans-serif;
   font-size: 26px;
   font-weight: 400;
   color: #f8f9fa;
   letter-spacing: 0.5px;
   text-shadow: 0 4px 15px rgba(0,0,0,0.4);
   margin-bottom: 20px;
-  animation: fadeInUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s both;
 }
 #hero .hero-acm-link {
   color: #34e89e;
@@ -82,9 +82,50 @@ h1, h2, h3, h4, h5, h6, .navbar a, .logo h1 {
   transform: translateY(-2px);
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Slide-in animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-left {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.slide-in-right {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.slide-in-left.animate-in {
+    animation: slideInLeft 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.slide-in-right.animate-in {
+    animation: slideInRight 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .section-title {
@@ -228,10 +269,9 @@ h1, h2, h3, h4, h5, h6, .navbar a, .logo h1 {
 }
 #pc-members ul li {
   margin-bottom: 6px !important;
-  padding-left: 20px;
-  position: relative;
   line-height: 1.6 !important;
-  font-size: 1em !important;
+  position: relative;
+  padding-left: 20px;
 }
 #pc-members ul li strong {
   font-weight: 700;
@@ -295,6 +335,66 @@ h1, h2, h3, h4, h5, h6, .navbar a, .logo h1 {
   margin-right: 15px;
 }
 
+/* Rules Section - Compact Layout (More Compact) */
+#rules p {
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+#rules > div > div > div > div {
+  margin-bottom: 6px !important;
+}
+
+#rules > div > div > div > div:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Challenge Tracks - Compact Layout (More Compact) */
+#tracks p {
+  margin-bottom: 0.4rem;
+  line-height: 1.45;
+}
+
+#tracks p[style*="margin-left"] {
+  margin-bottom: 0.35rem !important;
+}
+
+#tracks > div > div > div > div {
+  margin-bottom: 12px !important;
+}
+
+#tracks > div > div > div > div:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Dataset - Extra Compact Layout */
+#dataset p {
+  margin-bottom: 0.25rem;
+  line-height: 1.35;
+}
+
+#dataset p[style*="margin-left"] {
+  margin-bottom: 0.2rem !important;
+}
+
+#dataset > div > div > div > div {
+  margin-bottom: 8px !important;
+}
+
+#dataset > div > div > div > div:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Program Committee - Compact Layout (More Compact) */
+#pc-members ul li {
+  margin-bottom: 4px !important;
+  line-height: 1.4 !important;
+}
+
+#pc-members ul {
+  line-height: 1.4 !important;
+}
+
 .contact-text {
   text-align: center;
   font-size: 1.5em;
@@ -304,12 +404,14 @@ h1, h2, h3, h4, h5, h6, .navbar a, .logo h1 {
 
 /* Standardized margins and line-heights - ADJUSTED FOR COMPACT LAYOUT */
 p {
+  font-family: 'Lato', sans-serif !important;
   line-height: 1.6; /* Reduced from 1.75 for tighter text */
   color: #000000; /* Changed from #4a4a4a to pure black */
   font-size: 1.15em;
   margin-bottom: 1rem; /* Reduced from 1.2rem */
 }
 ul li {
+  font-family: 'Lato', sans-serif !important;
   margin-bottom: 8px; /* Reduced from 12px for tighter lists */
   line-height: 1.6; /* Reduced from 1.7 for tighter lists */
   color: #000000; /* Changed from #4a4a4a to pure black */
