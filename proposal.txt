@@ -1,0 +1,649 @@
+AffectiveArt Challenge 2026: Fine-Grained Emotion
+Understanding and Generation in Artistic Images
+AProposal for the ACM Multimedia 2026 Grand Challenge
+Abstract
+Recent advances in AI-generated content (AIGC), driven by large
+scale diffusion and multimodal foundation models, have signifi
+cantly improved visual realism. However, current systems remain
+limited in modeling the fine-grained emotional expression and
+abstract visual language inherent in artistic imagery. Unlike photo
+realistic generation, artistic creation requires coherent integration
+of style, brushwork, color composition, and affective intent. To
+address this gap, we propose the EmoArt 2026 Challenge, built
+upon the large-scale EmoArt dataset comprising 132,664 artworks
+across 56 artistic styles with structured affective annotations. The
+challenge consists of two complementary tracks: (1) Emotion-Aware
+Artistic Image Generation, focusing on emotionally and stylistically
+coherent synthesis; and (2) Multidimensional Art Emotion Under
+standing, targeting fine-grained affect recognition in artistic im
+agery. We introduce a rigorous evaluation protocol combining auto
+matic metrics (including the proposed Attribute Alignment Score)
+and expert-based human aesthetic assessment. The hidden test set
+is securely maintained to ensure fair benchmarking and prevent
+data leakage. The challenge will be co-located with the MUSE 2026
+Workshop on Multimodal Understanding and Synthesis of Emotion in
+Art at ACM Multimedia 2026, fostering close interaction between
+benchmark development and in-depth academic discussion. We
+envision EmoArt 2026 as a sustainable benchmark initiative that ad
+vances affective computing and emotion-aware artistic AI beyond
+the conference year.
+1 Introduction and Motivation
+1.1 WhyEmotionandArtLagBehind
+The recent “LLM era” has dramatically reshaped the AI landscape.
+With the scaling of large language models and the emergence of
+strong instruction-following and tool-using agents, AI systems
+have made striking progress in logical reasoning, mathematical
+problem solving, and code generation. In many benchmark
+settings, models can now produce step-by-step solutions, verify
+intermediate results, and even self-correct via external tools.
+Yet, these advances do not automatically translate into affective
+intelligence. Emotion understanding and artistic appreciation are
+rooted in subjective human experience, cultural context, and subtle
+perceptual cues. In fine art, meaning is often conveyed indirectly
+Permission to make digital or hard copies of all or part of this work for personal or
+classroom use is granted without fee provided that copies are not made or distributed
+for profit or commercial advantage and that copies bear this notice and the full citation
+on the first page. Copyrights for components of this work owned by others than the
+author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or
+republish, to post on servers or to redistribute to lists, requires prior specific permission
+and/or a fee. Request permissions from permissions@acm.org.
+ACMMultimedia ’26, Rio de Janeiro, Brazil
+©2026 Copyright held by the owner/author(s). Publication rights licensed to ACM.
+ACMISBN978-x-xxxx-xxxx-x/YYYY/MM
+https://doi.org/10.1145/nnnnnnn.nnnnnnn
+through low-level and mid-level visual decisions—e.g., brushstroke
+rhythm, tonal contrast, color harmony, spatial tension, and compo
+sitional balance—rather than through explicit objects alone. As a
+result, even when a model “knows” the word sad, it may not reliably
+connect sadness to the visual mechanisms that induce the feeling.
+This gap is especially consequential in the age of generative
+models. Text-to-image systems can already synthesize high-fidelity
+content, but they frequently treat emotion as a superficial style to
+ken, producing outputs that are semantically correct yet affectively
+ambiguous or inconsistent. Bridging this gap requires benchmarks
+and datasets that connect what is depicted with how emotion is
+expressed visually, enabling models to learn controllable affective
+generation and interpretable affective understanding.
+1.2 TheChallenge of Affective Artistic Image
+Generation and Understanding
+Recent advances in text-to-image models, such as Stable Diffusion
+3.5 [15] and FLUX.1[6],havedramatically improvedtherealismand
+controllability of visual generation. However, achieving emotionally
+faithful artistic expression remains a fundamental challenge. As
+illustrated in Fig. 1, current systems exhibit systematic limitations
+in both affective generation and understanding.
+In artistic generation, emotional intent is encoded through subtle
+interactions among composition, color harmony, style, and sym
+bolic cues. A “sad” painting, for example, is not merely an image of
+a crying subject, but may rely on descending compositional lines,
+low-key illumination, and a cool, desaturated palette. Existing gen
+erative models, largely trained on web-scale photographic data,
+tend to prioritize semantic correctness over affective coherence, of
+ten producing images that match textual objects but fail to capture
+the intended emotional style.
+A parallel limitation arises in artistic understanding. Current
+vision–language models frequently produce surface-level captions
+that describe visible objects while neglecting affective and aesthetic
+reasoning. They struggle to infer how formal visual elements con
+tribute to emotional atmosphere. Together, these issues reflect a
+deeper gap: the lack of joint modeling of emotion, style, and seman
+tics in artistic multimedia. Addressing this gap requires new bench
+marks and evaluation frameworks that explicitly target emotion
+aware artistic reasoning.
+1.3 Limitations of Existing Benchmarks
+The progress of emotion-aware AIGC has been hindered by the
+scarcity of high-quality, fine-grained datasets. As illustrated in
+Table 1, existing resources suffer from critical limitations:
+• Insufficient Scale: Pioneering datasets like ArtPhoto (806
+images) [7] and Emotion6 (1,980 images) are too small to
+train data-hungry diffusion models.
+ACMMultimedia ’26, November 10–14, 2026, Rio de Janeiro, Brazil
+Figure 1: Current limitations of artistic AI in emotion-aware generation and understanding. Left: emotion-aware artistic
+generation frequently exhibits style mismatch and emotion drift with respect to the intended artistic expression. Right:
+artistic understanding often remains at surface-level captioning, lacking affective semantics and structured reasoning about
+composition and color relationships. Center: both limitations stem from a shared core gap—the absence of joint modeling of
+emotion, style, and semantics. The proposed AffectiveArt Grand Challenge + Workshop (MUSE 2026: Multimodal Understanding
+and Synthesis of Emotion in Art) aims to address this gap through benchmark-driven research, standardized evaluation
+protocols, and community building.
+• Domain Mismatch: Datasets like EmoSet [16] focus on
+social media photography, which lacks the stylistic diversity
+and abstract nature of fine art.
+• Shallow Annotation: While ArtEmis [1] provides affective
+captions, it lacks structured annotations for the visual at
+tributes that cause the emotion. Without knowing why an
+image is perceived as “calm” (e.g., due to “smooth, blending
+brushstrokes”), models cannot learn to generate “calm” art
+effectively.
+1.4 OurContribution: The EmoArt Paradigm
+The EmoArt 2026 Challenge seeks to redefine this landscape. We
+leverage the EmoArt dataset [19], which is distinct in its multi
+dimensional approach. It creates a bridge between Computer Vi
+sion, Art History, and Psychology. By incorporating labels de
+rived from art therapy (e.g., “Relieve Stress”), we also open new
+avenues for AI in mental health and well-being applications.
+Figure 2: Construction pipeline of the EmoArt dataset.
+2 TheEmoArtDataset
+The foundation of this challenge is the EmoArt dataset, constructed
+through a meticulous pipeline ensuring legal compliance, cultural
+diversity, and annotation quality.
+AffectiveArtChallenge2026:Fine-GrainedEmotionUnderstandingandGenerationinArtisticImages ACMMultimedia’26,November10–14,2026,RiodeJaneiro,Brazil
+Table1:ComparisonofEmotion-relatedDatasets,RrepresentsRecognition,GrepresentsGeneration.
+Dataset ImageType LabelSource Tasks Image Category Valence&Arousal Attributes Description
+IAPSa[9] Photo Human R 395 ✓ ✓ ✗ ✗
+GAPED[3] Photo Human R 730 ✓ ✓ ✗ ✗
+ArtPhoto[7] Art Human R 806 ✓ ✗ ✗ ✗
+Emotion6[11] Photo Human R 1980 ✓ ✗ ✗ ✗
+FI[18] Photo Human R 23308 ✓ ✗ ✗ ✗
+WEBEmo[10] Photo Human R 268K ✓ ✗ ✗ ✗
+Artemis[1] Art Human G&R 80K ✓ ✗ ✗ ✓
+EmoSet[16] Photo/Art Human&LLM G&R 3300K ✓ ✗ ✓ ✗
+FindingEmo[8] Photo Human R 25K ✓ ✓ ✗ ✗
+EmoArt(Ours) Art Human&LLM G&R 130K ✓ ✓ ✓ ✓
+2.1 DataCollectionandFiltering
+Weaggregatedover200,000rawimagesfromauthoritativepublic
+domainsources:WikiArt,TheMetropolitanMuseumofArt,The
+NationalMuseumofAsianArt,Europeana,andtheNationalPalace
+Museum.
+Toensurethedatasetisrobustformachinelearningtasks,we
+appliedafour-stagefilteringprotocol:
+(1)ArtFormFiltering:Westrictlyretainedonlypaintings.
+Othermediasuchassculptures,ceramics,andarchitecture
+wereexcludedtomaintainconsistencyin2Dvisualfeature
+learning.
+(2)ContentSafety:Arigoroussafetypipelinewasimplemented.
+WecombinedautomatedNSFWclassificationwithmanual
+reviewtoremoveexplicitcontent,ensuringthedatasetis
+suitableforacademicandpublicuse.
+(3)QualityAssurance:Imageswithresolutionsbelow300×300
+pixels,orthosecontainingsignificantwatermarks,borders,
+orcompressionartifacts,werediscardedtopreventmodel
+degradation.
+(4)CategoryBalancing:Toavoidlong-taildistributionissues
+commoninartdatasets,wefilteredoutartisticstyleswith
+fewerthan400samples.
+Thefinaldatasetcontains132,664imagesspanning56distinct
+styles,groupedintoseventhematicdomains:Classics,ModernEdge,
+EastSpirit,ChromaticSoul,DreamVisions,Form&Flow,andSocial
+Mirror.
+2.2 HierarchicalAnnotationPipeline
+Weemployedastate-of-the-artannotationstrategyleveragingGPT
+4oasamultimodalaestheticengine,followedbyhumanverification.
+Thisallowedustogeneratedescriptionsthatarenotjustdescrip
+tivebut“emotionallyaware.”Theannotationsystemcoversfive
+dimensions:
+(1)ContentDescription:UnlikebriefCOCOcaptions,our
+descriptions(Avg.35.6words)providedetailednarrativesof
+thescene, integratingemotionalcues.
+(2)VisualAttributes:Basedonartpsychology,weprovide
+structureddescriptionsforfivekeyelements:
+•Brushwork:Strokethickness,rhythm, texture(e.g.,“im
+pasto,”“delicate”).
+•Composition:Symmetry,balance,focalpoints(e.g.,“trian
+gularcomposition”).
+•Color:Huepalettes,saturationlevels,harmony.
+•Line:Curvature,continuity, intensity.
+•Light:Contrast,direction,atmosphericeffects(e.g.,“chiaroscuro”).
+(3)ValenceandArousal(VA):Continuousvaluesbasedon
+Russell’sCircumplexModel[14].
+(4)DominantEmotion:Classificationinto12representative
+categoriesselectedtocovertheVAspace:
+•HighArousal/Positive:Excited,Happy,Aroused.
+•HighArousal/Negative:Alarmed,Annoyed,Frustrated.
+•LowArousal/Negative:Sad,Bored,Tired.
+•LowArousal/Positive:Calm,Content,Glad.
+(5)TherapeuticPotential:Labelsindicatingtheartwork’spo
+tentialpsychologicalbenefit(e.g.,“RelieveStress”), inspired
+byprofessionalarttherapypractices.
+2.3 HumanValidationandDataAnalysis
+Tovalidatetheautomatedannotations,weconductedastudywith
+5,600images.Tentrainedannotatorsassessedthequality.There
+sultsdemonstratedhighreliability:
+•DescriptionAgreement:98.01%
+•VisualAttributesAgreement:98.56%
+•EmotionLabelAgreement:91.47%
+DataStatistics:Thedatasetincludessignificantrepresentation
+ofnon-Westernart,suchasUkiyo-e(Japanese)andChineseInk
+Washpainting.Analysisshowsthese“EastSpirit”stylesstrongly
+correlatewith“LowArousal”and“PositiveValence”(Calmness),re
+flectingEasternaestheticidealsofharmony.Furthermore,EmoArt
+descriptionsachieveaType-TokenRatio(TTR)of0.9358andan
+AverageWordCountof16.22,significantlyoutperformingdatasets
+likeCOCOandArtEmisinlexicaldiversity.
+ACMMultimedia ’26, November 10–14, 2026, Rio de Janeiro, Brazil
+Figure 3: Representative art categories in the dataset: the
+inner ring shows the major categories, and the outer ring
+shows the specific subcategories.
+3 Challenge Tasks
+3.1 Track 1: Emotion-Aware Artistic Image
+Generation
+ProblemStatement:Givenamultimodalprompt𝑃 = {𝑇𝑑𝑒𝑠𝑐,𝑆𝑠𝑡𝑦𝑙𝑒,𝐸𝑡𝑎𝑟𝑔𝑒𝑡},
+where𝑇𝑑𝑒𝑠𝑐 describes the semantic content,𝑆𝑠𝑡𝑦𝑙𝑒 specifies the artis
+tic movement, and 𝐸𝑡𝑎𝑟𝑔𝑒𝑡 defines the desired emotional state (via
+VA values or category), the goal is to generate an image 𝐼𝑔𝑒𝑛 that
+fulfills all three conditions.
+Scientific Challenge: Participants must develop models that
+can disentangle style from emotion. For example, generating an
+“Expressionist” painting (Style) that is “Calm” (Emotion) is non
+trivial, as Expressionism is typically associated with high arousal
+(Anger/Anxiety). Successful models must learn tosubtly manipulate
+visual attributes (e.g., smoothing the brushwork while keeping the
+distorted forms) to achieve this hybrid state.
+Submission Format: Participants will submit generated im
+ages for a hidden test set of prompts. Code/Docker containers are
+required for verification.
+3.2 Track 2: Multidimensional Art Emotion
+Understanding
+Problem Statement: This is a multi-task art-affect understanding
+challenge. Given an input artwork 𝐼, a model 𝑀 is expected to pro
+duce a compact but information-rich report that covers both what
+is depicted and how the depicted content is emotionally conveyed
+through artistic techniques:
+(1) Emotion Prediction: A probability distribution over the 12
+emotion classes.
+(2) Binary VA Prediction: Binary prediction for Valence (posi
+tive vs. negative) and Arousal (high vs. low).
+(3) Attribute Analysis: Textual descriptions of the five visual
+attributes (Brushwork, Composition, Color, Line, Light).
+Scientific Challenge: The key difficulty lies in connecting low
+level visual patterns (e.g., texture, contrast, stroke direction) to high
+level affective judgments that are subjective and context-dependent.
+In other words, the model should not only output an emotion label,
+but also explain it through interpretable attribute evidence, moving
+toward automated, controllable “Art Critics.”
+4 Baseline Models
+Weprovide high-quality baselines to facilitate participation.
+4.1 Generation Baseline: Fine-Tuned
+FLUX.1-dev
+Weutilized the FLUX.1-dev model, a state-of-the-art 12B parameter
+rectified flow transformer.
+• Fine-tuning: We employed LoRA (Low-Rank Adaptation)
+for efficient fine-tuning [5].
+• Training Set: A curated subset of 50 images per style (ap
+prox. 2,800 images).
+• Prompt Construction: “Style: [S]. Arousal: [A]. Valence:
+[V]. Description: [T].”
+• Results: In our preliminary benchmarks, this fine-tuned
+model achieved the highest scores in Brushstroke Quality
+(0.6388) and Color Quality (0.6974), significantly outperform
+ing vanilla SDXL [12] and PixArt-sigma [2]. This demon
+strates the necessity of fine-tuning on domain-specific emo
+tional data.
+4.2 Understanding Baseline
+WeprovideabaselineusingQwen3-VL[13],astrongvision-language
+model that can be prompted to perform multi-head prediction and
+produce faithful natural-language rationales.
+• Input: The artwork 𝐼 (optionally with task instructions /
+few-shot examples).
+• Outputs: (i) emotion classification, (ii) binary VA prediction,
+and (iii) attribute analysis as structured text that can be
+directly parsed into the five attribute slots.
+5 Evaluation Protocol
+The evaluation protocol is designed to rigorously measure artistic
+f
+idelity, emotional alignment, and generalization ability in
+a fair and leakage-resistant manner. Rather than relying solely
+on low-level pixel similarity, we prioritize metrics that capture
+semantic intent and affective consistency. The challenge consists
+of two complementary tracks: Track 1 evaluates emotion-aware
+artistic generation, and Track 2 evaluates emotion understanding.
+All official rankings are computed on a hidden test set evaluated
+exclusively on a secure server to preserve benchmark integrity.
+5.1 HiddenTest Set and Evaluation Integrity
+To prevent data leakage and ensure fair comparison, the official test
+set used for leaderboard ranking is a hidden evaluation set that
+AffectiveArt Challenge 2026: Fine-Grained Emotion Understanding and Generation in Artistic Images
+ACMMultimedia ’26, November 10–14, 2026, Rio de Janeiro, Brazil
+is not publicly released online. All test images are stored exclu
+sively on the evaluation server and are inaccessible to participants.
+Submissions are evaluated through a server-side pipeline in
+which participants upload executable inference code or prediction
+f
+iles, and results are computed internally against the hidden test
+data. This design discourages memorization-based approaches and
+prevents overfitting to test samples. The hidden test set is distribu
+tionally distinct from the public training data and contains diverse
+artistic styles and sources to assess true cross-domain generaliza
+tion.
+Afinal blind evaluation phase is conducted using a reserved sub
+set of hidden samples that are never used for intermediate leader
+board updates. This protocol ensures the integrity, reproducibility,
+and scientific validity of the challenge results.
+5.2 Track 1: Generation Metrics
+Track 1 evaluates how well generated artworks preserve visual
+realism, stylistic intent, and requested artistic attributes. We employ
+a combination of perceptual and semantic metrics:
+(1) Fréchet Inception Distance (FID). We report FID as a stan
+dard measure of distributional similarity between generated
+and reference artworks [4]. FID captures both image qual
+ity and diversity at a global level and serves as a common
+baseline for comparison with prior generative models.
+(2) Attribute Alignment Score (AAS). We introduce the At
+tribute Alignment Score (AAS)toevaluate whether gener
+ated images faithfully realize the requested artistic attributes
+(e.g., style, brushwork, composition). A multimodal evalu
+ator based on MiniCPM-V-2.6 [17], fine-tuned on EmoArt
+annotations, produces a textual attribute description ˆ𝑇𝑎𝑡𝑡𝑟
+for each generated image. AAS is defined as
+𝐴𝐴𝑆 =CosSimCLIP(ˆ𝑇𝑎𝑡𝑡𝑟),CLIP(𝑇𝑎𝑡𝑡𝑟) ,
+(1)
+where𝑇𝑎𝑡𝑡𝑟 denotes the ground-truth attribute specification.
+This metric explicitly measures semantic alignment between
+intended and generated artistic techniques.
+(3) LPIPS Perceptual Similarity. We report LPIPS [20] to as
+sess perceptual realism and structural coherence at a local
+level. Together with FID, LPIPS provides a complementary
+view of visual fidelity and diversity.
+The final Track 1 ranking is computed using a weighted ag
+gregation of normalized scores to balance perceptual quality and
+semantic alignment.
+5.3 Track 2: Emotion Understanding Metrics
+Track 2 evaluates emotion recognition from artistic images along
+three core dimensions: categorical emotion, valence, and arousal. To
+ensure comparability and reproducibility, the official leaderboard is
+restricted to these standardized indicators.
+• Emotion Classification (12-way). We report Top-1 Accu
+racy as the primary metric and Macro F1-score to account
+for class imbalance. This measures fine-grained recognition
+of discrete emotional categories expressed in artworks.
+• Valence Prediction (binary). We report Accuracy and
+MacroF1-score for valence (positive vs. negative affect). This
+evaluates whether models capture the global emotional po
+larity conveyed by artistic cues.
+• Arousal Prediction (binary). We report Accuracy and
+Macro F1-score for arousal (high vs. low activation). This
+measures sensitivity to intensity-related visual signals such
+as contrast, color saturation, and dynamic brushwork.
+5.4 HumanExpertEvaluation (Final Phase)
+For top-ranked submissions, we conduct an additional qualitative
+evaluation performed by human experts with formal training
+in art and visual design. Evaluators are selected from individuals
+with academic or professional backgrounds in fine arts, art theory,
+or visual communication to ensure informed judgment of artistic
+quality and emotional expression.
+Experts assess artworks using structured criteria including emo
+tional expressiveness, artistic coherence, and technique realism
+(e.g., plausibility of brushwork and texture). Each sample is rated
+by multiple independent evaluators using standardized guidelines,
+and inter-rater agreement is monitored to ensure reliability.
+This expert evaluation complements automatic metrics by cap
+turing nuanced artistic and affective qualities that are difficult to
+quantify computationally, providing a holistic assessment of emo
+tionally intelligent artistic generation and understanding.
+Practical Notes: We will provide an evaluation script with a fixed
+output format and publish per-style breakdown tables (e.g., Impres
+sionism vs. Abstract Expressionism) to highlight generalization
+across artistic movements. We also encourage (but do not require)
+participants to submit auxiliary analyses (e.g., calibration curves or
+qualitative case studies) in their technical reports to better explain
+strengths and failure modes.
+6 Tentative Schedule
+The challenge will follow the overall ACM Multimedia 2026 time
+line and the Grand Challenge organization process. To keep the
+organization flexible and avoid unnecessary constraints, we provide
+the following tentative milestones as a reference; the exact dates
+and details may be adjusted based on conference announcements,
+platform readiness, and community feedback.
+• Early phase (launch & onboarding): We will open the
+challenge website, publish participation guidelines, and re
+lease an initial version of the training/validation resources
+together with baseline models.
+• Middle phase (development & evaluation): We will pro
+gressively release evaluation instructions and (when ready)
+the test protocol. During this period, we will also maintain a
+public FAQ and update baselines as needed to ensure repro
+ducibility.
+• Late phase (submission & reporting): We will collect
+submissions, verify results, and announce the final leader
+board. A technical report/paper submission window will be
+provided according to the official proceedings requirements.
+• Workshop & dissemination: Results will be presented
+and discussed in the associated workshop/session at ACM
+Multimedia 2026, including invited talks, participant presen
+tations, and a summary of lessons learned.
+ACMMultimedia ’26, November 10–14, 2026, Rio de Janeiro, Brazil
+Note: Any schedule updates will be communicated through the
+challenge website and official channels to ensure transparency for
+all participants.
+7 Administrative Details
+• Website & Hosting: The challenge will be hosted on a ded
+icated website (GitHub Pages) linked to a CodaLab competi
+tion page for automated leaderboard updates.
+• DataAccess:Thedataset is hosted on Hugging Face (already
+accessible at https://huggingface.co/datasets/printblue/EmoArt
+130k) under a CC BY-NC 4.0 license. Participants must sign
+an End User License Agreement (EULA) ensuring the data is
+used for academic research only.
+• Ethical Considerations:– Copyright: All images are sourced from the public do
+main or open access museum policies.– Bias: We acknowledge that art history contains inherent
+biases (e.g., gender representation). We encourage partici
+pants to perform bias analysis on their models.– Misuse: The generation of deepfakes or offensive content
+is strictly prohibited. The organizing committee reserves
+the right to disqualify submissions violating these ethical
+guidelines.
+8 Organizers
+HongxiaXie[MainContact]is anAssociate Professor at the Col
+lege of Computer Science and Technology, Jilin University, China,
+and leads the Affective Vision Computing Lab. Her research fo
+cuses on computer vision, affective computing, and multimodal
+large models, with an emphasis on emotion understanding and
+generation in visual media. She has led multiple research projects
+in multimodal affective intelligence and actively promotes inter
+disciplinary collaboration between academia and industry. She is
+the corresponding author of the EmoArt dataset. She has published
+over 20 papers in leading international venues, including CVPR,
+ICCV, ECCV, ACM Multimedia, AAAI, and IEEE Transactions on
+Affective Computing. She also serves as the Grand Challenge Chair
+of ACMMultimedia 2025. (Email: hongxiaxie@jlu.edu.cn)
+Cheng Zhang [Main Contact] is a research assistant working
+on multimedia understanding and generative models, with inter
+ests in vision–language learning and affective computing. His work
+focuses on fine-grained visual analysis and emotion-aware multi
+media generation. He is the leading author of the EmoArt dataset.
+(Email: zhangcheng2122@mails.jlu.edu.cn)
+Wen-Huang Cheng is a University Distinguished Chair Pro
+fessor in the Department of Computer Science and Information
+Engineering at National Taiwan University and a Visiting Profes
+sor at the Korea Advanced Institute of Science and Technology
+(KAIST). His current research interests include multimedia, com
+puter vision, and machine learning. He has actively participated
+in international events and played significant leadership roles in
+prestigious journals, conferences, and professional organizations.
+These roles include serving as Editor-in-Chief for IEEE CTSoc News
+on Consumer Technology, Senior Editor for IEEE Consumer Elec
+tronics Magazine (CEM), Associate Editor for IEEE Transactions
+on Pattern Analysis and Machine Intelligence (TPAMI) and IEEE
+Transactions on Multimedia (TMM), General Chair for ACM MMA
+sia (2023), IEEE ICME (2022), and ACM ICMR (2021), Technical
+Program Chair for ACM MM(2025), ACM ICMR (2022), IEEE ICME
+(2020), IEEE VCIP (2018), Chair for IEEE CASS Multimedia Systems
+and Applications (MSA) technical committee, and governing board
+member for IAPR. He has received numerous research and service
+awards, including the NVIDIA Academic Grant Program Award
+(2025), the 2024 Best Paper Award of IEEE Consumer Electronics
+Magazine, the Best Paper Award at the 2021 IEEE ICME and the
+Outstanding Associate Editor Award of IEEE TMM (2021 and 2020,
+twice). He is an IEEE Fellow, IET Fellow, and ACM Distinguished
+Member.
+Jianlong Fu is a Principal Research Manager leading research
+and innovation in the Multimedia Computing Group at Microsoft
+Research Asia (MSRA), Beijing, China. He received his Ph.D. from
+the Institute of Automation, Chinese Academy of Sciences. His
+research focuses on multimedia content understanding and multi
+modal perceptual computing across images, videos, and embodied
+agents. He has published over 200 peer-reviewed papers and holds
+more than 20 U.S. patents, with a Google Scholar h-index of 63. Dr.
+Fu serves as Vice-Chair of the Automotive CE Applications Techni
+cal Committee under the IEEE ConsumerTechnologySociety and is
+on the editorial boards of IEEE Consumer Electronics Magazine and
+IEEE Transactions on Multimedia. He also served as Guest Editor
+for IEEE TPAMI (2019–2021). He has chaired multiple committees
+at flagship conferences including ACM Multimedia (2021, 2026)
+and ACMICMR(2021, 2023). His honors include the ACM SIGMM
+Rising Star Award 2022, the Best Paper Award at ACM Multimedia
+2018, and more than ten international competition championships
+at CVPR/ICCV/ECCV. His research has been deployed in major
+Microsoft products including Windows, Office, Bing, Edge, and
+XiaoIce.
+Sicheng Zhao is an Associate Professor at Tsinghua University.
+He was a postdoctoral research scientist at Columbia University
+(2020–2022), a postdoctoral research fellow at the University of
+California, Berkeley (2017–2020), and a postdoc at Tsinghua Uni
+versity (2016–2017). He received his Ph.D. from Harbin Institute of
+Technology in 2016 and was a visiting researcher at the National
+University of Singapore (2013–2014). His research focuses on affec
+tive computing, multimodal large models, and computer vision. He
+has published over 100 papers in top-tier venues with more than
+14,000 Google Scholar citations. He is a Distinguished Member of
+CCF and a Senior Member of ACM, IEEE, and CSIG. He serves as
+Associate Editor for IEEE TIP and IEEE TAFFC, and has been Area
+Chair for NeurIPS, ICML, ICLR, ACM MM, CVPR, and ECCV. He
+has organized special sessions at ICASSP, ICMR, ICME, and ICIP,
+and workshops at ACM MM. He has been recognized as an AI 2000
+Most Influential Scholar and a World’s Top 2% Scientist.
+Sanghoon Lee is an IEEE Fellow and Full Professor in the De
+partment of Electrical and Electronic Engineering at Yonsei Univer
+sity, and an Adjunct Professor at the Yonsei University College of
+Medicine. His research interests include generative AI and deepfake
+detection, 3D multi-camera systems and reconstruction, human
+avatar modeling and synthesis, and multimodal signal processing
+AffectiveArt Challenge 2026: Fine-Grained Emotion Understanding and Generation in Artistic Images
+ACMMultimedia ’26, November 10–14, 2026, Rio de Janeiro, Brazil
+for artificial intelligence. He also served as an editor for the Journal
+of Communications and Networks from 2009 to 2015. He was an
+associate editor and guest editor of the IEEE Transactions on Image
+Processing from 2010 to 2014, and 2013, respectively. He was the
+General Chair of the 2013 IEEE IVMSP Workshop. He has served
+as the Chair of the IEEE P3333.1 Working Group since 2011. He
+served as an associate editor and a senior area editor for the IEEE
+Signal Processing Letters from 2014 to 2018, and since 2018. He
+was a member of the IEEE IVMSP/MMSP TC from 2014 to 2019
+and from 2016 to 2021, respectively. He has served as an associate
+editor of the IEEE Transactions on Multimedia since 2022. He was
+the Image, Video, and Multimedia TC Chair of APSIPA from 2018
+to 2019. He is a BoG member of APSIPA and is the Editor-in-Chief
+of APSIPA newsletters.
+Xing Huang is the Executive Dean of the Insight Research
+Institute at Lianxin Digital, where she leads the development of
+human-centric AI models for large-scale psychological assessment.
+Her research focuses on quantifying transient psychological states
+and stable traits, delivering scalable affective computing solutions
+for national security, social stability, and public health. Her tech
+nologies have been commercially deployed in over 20 provinces in
+China and serve more than 400 institutional clients. She has con
+tributed to multiple industrial standards in AI-driven psychological
+assessment and published in venues such as Acta Psychologica,
+Scientia Sinica Vitae, and ACM Multimedia.
+Ling Lo is a postdoctoral researcher at National Yang Ming
+Chiao Tung University, Taiwan. She received her Ph.D. and B.S. in
+Electronics Engineering from National Yang Ming Chiao Tung Uni
+versity. Her research lies at the intersection of computer vision and
+machine learning, with a focus on affective computing, generative
+AI for multimedia, and trustworthy visual content creation. Her
+work has been published in top-tier venues, including ACM MM,
+CVPR, ICCV, AAAI, ACM TOMM, IEEE TMM, and IEEE TAFFC,
+and she received the ICME Best Paper Award (2021).
+Hong-Han Shuai is a Professor at National Yang Ming Chiao
+Tung University (NYCU), where he is at the forefront of research in
+multimedia processing, deep learning, computer vision, and data
+mining. His research has been prominently featured at leading Ar
+tificial Intelligence/Data Mining conferences such as MM, NeurIPS,
+CVPR, ICCV, ECCV, ACL, EMNLP, NAACL, AAAI, KDD, WWW,
+ICDM, CIKM, and VLDB, and in top-tier journals including TKDE,
+TKDD, TMM, TNNLS, TACL, and JIOT. He has played significant
+roles in the academic community, serving as Associate Editor for
+both IEEE Transactions on Multimedia (TMM) and IEICE Transac
+tions on Information and Systems, Guest Editor for ACM Trans
+actions on Multimedia Computing, Communications, and Appli
+cations (TOMM), and as TPC Co-Chair for conferences like IEEE
+ICCE-TW, International Conference on Technologies and Appli
+cations of Artificial Intelligence (TAAI) and IPPR Conference on
+Computer Vision, Graphics, and Image Processing (CVGIP). He
+also contributes to the technical committee for IEEE Multimedia
+Systems and Applications (MSA). He has been honored with several
+research awards, notably the Best Paper Awards at the 2021 IEEE
+International Conference on Multimedia and Expo, 2025 World
+Congress on Medical and Health Informatics (MedInfo).
+Chieh-Yun Chen is currently a Ph.D. student in Georgia Tech,
+advised by Prof. Humphrey Shi, where she focus on user-centric
+tasks within Vision-related fields, i.e., agent, generative models.
+Ziyun Li is a Postdoctoral Researcher in Generative AI at KTH
+Royal Institute of Technology, Stockholm, Sweden. Her research
+interests include generative AI, flow matching, diffusion models,
+fairness, AI safety, and the societal impact of AI.
+Jian-Yu Jiang-Lin is currently pursuing the Ph.D. degree with
+the Communications and Multimedia Laboratory, National Taiwan
+University, Taipei, Taiwan. He received the B.S. degree in electron
+ics engineering and the M.S. degree in artificial intelligence from
+National Yang Ming Chiao Tung University, Hsinchu, Taiwan, in
+2022 and 2024, respectively. His research interests include trustwor
+thy Multimodal Large Language Models, with a particular focus on
+safety alignment, explainability, deepfake detection, and embodied
+intelligence.
+Kang-Yang Huang received the M.S. degree in Computer Sci
+ence from National Taiwan University (NTU), Taiwan, in 2025, and
+he earned the B.S. degree from the Undergraduate Honors Pro
+gram in Electrical Engineering and Computer Science at National
+Yang Ming Chiao Tung University (NYCU), Hsinchu, Taiwan. His
+research focuses on the intersection of computer vision and deep
+learning, encompassing generative AI and visual language models.
+He has received the 2024 Best Paper Award from IEEE Consumer
+Electronics Magazine.
+Ling Zou is currently pursuing the Ph.D. degree in Computer
+Science at National Taiwan University (NTU), Taipei, Taiwan. She
+received the M.S. degree in computer science and information engi
+neering from NTU in 2025, and the B.S. degree in computer science
+and information engineering from Ming Chuan University (MCU),
+Taiwan. Herresearch focuses on theintersection of computer vision
+and deep learning, with particular interests in the acceleration of
+multimodal large language models (MLLMs) and generative AI.
+8.1 TeamComposition, Division of Roles, and
+Geographic Diversity.
+Our organizing team integrates complementary strengths from
+academia and industry while reflecting strong international and
+geographic diversity. The academic core consists of leading re
+searchers in computer vision and multimedia — Hongxia Xie
+(China), Wen-Huang Cheng, Hong-Han Shuai, Ling Lo (Tai
+wan), Sicheng Zhao (China), Sanghoon Lee (South Korea), and
+Ziyun Li (Sweden) — who contribute expertise in affective com
+puting, multimodal understanding, and generative AI. They are
+primarily responsible for defining the scientific scope, benchmark
+design, and academic program development.
+The team is further strengthened by distinguished industry
+leaders, Jianlong Fu (Microsoft Research Asia, China) and Xing
+Huang (Lianxin Digital, China), who represent leading enterprise
+research and large-scale commercial deployment of AI technolo
+gies. They bring extensive experience in translating cutting-edge
+research into production systems, driving technology transfer, and
+shaping industrial standards. Their involvement explicitly anchors
+the workshop in real-world industrial scenarios, ensuring that the
+ACMMultimedia ’26, November 10–14, 2026, Rio de Janeiro, Brazil
+program highlights enterprise-driven challenges, practical evalua
+tion settings, and dedicated industry-focused sessions. In particular,
+Lianxin Digital will serve as a close industrial partner of the com
+petition and provide sponsorship support, further strengthening the
+connection between academic research and real-world deployment.
+This strong industrial presence guarantees high practical relevance
+and fosters direct interaction between academic advances and prac
+tical applications.
+This collaboration spans multiple countries and regions across
+Asia and Europe and bridges academic and industrial ecosystems.
+Such geographic and institutional diversity promotes inclusive par
+ticipation, broad international outreach, and a balanced perspective
+that advances both fundamental research and impactful real-world
+innovation.
+8.2 CommitmenttoLong-Term Website
+Maintenance
+The organizing committee is fully committed to establishing, pub
+lishing, and continuously maintaining an official website for the
+AffectiveArt Grand Challenge. The website will provide comprehen
+sive and up-to-date information, including challenge descriptions,
+task definitions, evaluation protocols, datasets (subject to license),
+baseline implementations, submission guidelines, leaderboards, and
+f
+inal results.
+Wecommit to maintaining and updating the website, datasets,
+andrelated documentation for at least three years following the con
+clusion of ACM Multimedia 2026. The website will serve as a stable
+and publicly accessible platform to ensure long-term availability
+of challenge resources, reproducibility of results, and sustained
+community engagement.
