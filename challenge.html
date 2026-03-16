@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Challenge | AffectiveArt 2026</title>
-  <meta content="AffectiveArt Challenge 2026 ‚Ä?Tracks and Dataset" name="description">
+  <meta content="AffectiveArt Challenge 2026 ‚Äî Tracks and Dataset" name="description">
   <link rel="shortcut icon" href="images/logo/icon.png" type="image/x-icon">
 
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -15,8 +15,7 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <link href=assets/css/custom.css rel=stylesheet>
+  <link href="assets/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,16 +23,16 @@
   <header id="header" class="fixed-top header-transparent">
     <div class="container d-flex align-items-center justify-content-between position-relative">
       <div class="logo">
-        <h1 class="text-light"><a href="index.html"><span>AffectiveArt Challenge @ ACM MM 2026</span></a></h1>
+        <h1><a href="index.html">AffectiveArt Challenge @ ACM MM 2026</a></h1>
       </div>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="index.html">Home</a></li>
-          <li><a class="nav-link scrollto active" href="challenge.html">Challenge</a></li>
-          <li><a class="nav-link scrollto" href="dates.html">Dates</a></li>
-          <li><a class="nav-link scrollto" href="registration.html">Registration</a></li>
-          <li><a class="nav-link scrollto" href="info.html">Rules</a></li>
-          <li><a class="nav-link scrollto" href="organisers.html">Organizers</a></li>
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link active" href="challenge.html">Challenge</a></li>
+          <li><a class="nav-link" href="dates.html">Dates</a></li>
+          <li><a class="nav-link" href="registration.html">Registration</a></li>
+          <li><a class="nav-link" href="info.html">Rules</a></li>
+          <li><a class="nav-link" href="organisers.html">Organizers</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -41,144 +40,158 @@
   </header>
 
   <section id="hero">
-    <div class="hero-container" data-aos="fade-up">
-      <h1 style="font-size: 42px; margin: 80px 0 20px 0;">AffectiveArt Challenge 2026</h1>
-      <h2 style="font-size: 24px;">Challenge Tracks &amp; Dataset</h2>
+    <div class="hero-container">
+      <h1>Challenge Tracks &amp; Dataset</h1>
+      <h2>AffectiveArt Challenge 2026</h2>
     </div>
   </section>
 
   <main id="main">
 
-    <!-- Overview -->
     <section id="overview" class="services">
       <div class="container">
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+        <div class="section-title">
           <h2>Overview</h2>
-          <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-              <p>
-                AffectiveArt Challenge 2026 consists of two complementary tracks:
-                the <a href="#track1">Emotion-Aware Artistic Image Generation track</a> and the
-                <a href="#track2">Multidimensional Art Emotion Understanding track</a>.
-                Track 1 focuses on emotionally and stylistically coherent synthesis, while
-                Track 2 targets fine-grained affect recognition in artistic imagery.
-                We introduce a rigorous evaluation protocol combining automatic metrics and expert-based human aesthetic assessment.
-              </p>
-            </div>
-            <div class="col-2"></div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10">
+            <p class="lead">
+              AffectiveArt Challenge 2026 consists of two complementary tracks:
+              the <a href="#track1">Emotion-Aware Artistic Image Generation track</a> and the
+              <a href="#track2">Multidimensional Art Emotion Understanding track</a>.
+              Track 1 focuses on emotionally and stylistically coherent synthesis, while
+              Track 2 targets fine-grained affect recognition in artistic imagery.
+              We introduce a rigorous evaluation protocol combining automatic metrics and expert-based human aesthetic assessment.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Dataset -->
-    <section id="dataset" class="services">
+    <section id="dataset" class="services section-bg-alt">
       <div class="container">
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+        <div class="section-title">
           <h2>Dataset</h2>
-          <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-              <h3 style="font-size:1.35em; color:#7d3c98; margin-bottom:12px;">EmoArt Dataset</h3>
-              <p>
-                The foundation of this challenge is the <strong>EmoArt dataset</strong>, which comprises
-                132,664 artworks across 56 artistic styles with structured affective annotations.
-              </p>
-              <ul>
-                <li><strong>Data Collection:</strong> Over 200,000 raw images aggregated from WikiArt, The Metropolitan Museum of Art, etc.</li>
-                <li><strong>Filtering:</strong> Four-stage protocol ensuring quality (Art Form Filtering, Content Safety, Quality Assurance, and Category Balancing).</li>
-                <li><strong>Diversity & Themes:</strong> Covers 56 distinct styles grouped into seven thematic domains: Classics, Modern Edge, East Spirit, Chromatic Soul, Dream Visions, Form & Flow, and Social Mirror.</li>
-                <li><strong>Rich Vocabulary:</strong> Achieves a Type-Token Ratio (TTR) of 0.9358 and an Average Word Count of 16.22, significantly outperforming datasets like COCO and ArtEmis in lexical diversity.</li>
-              </ul>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10">
+            <h3>EmoArt Dataset</h3>
+            <p>
+              The foundation of this challenge is the <strong>EmoArt dataset</strong>, which comprises
+              132,664 artworks across 56 artistic styles with structured affective annotations.
+            </p>
+            <ul>
+              <li><strong>Data Collection:</strong> Over 200,000 raw images aggregated from WikiArt, The Metropolitan Museum of Art, etc.</li>
+              <li><strong>Filtering:</strong> Four-stage protocol ensuring quality (Art Form Filtering, Content Safety, Quality Assurance, and Category Balancing).</li>
+              <li><strong>Diversity &amp; Themes:</strong> Covers 56 distinct styles grouped into seven thematic domains: Classics, Modern Edge, East Spirit, Chromatic Soul, Dream Visions, Form &amp; Flow, and Social Mirror.</li>
+              <li><strong>Rich Vocabulary:</strong> Achieves a Type-Token Ratio (TTR) of 0.9358 and an Average Word Count of 16.22, significantly outperforming datasets like COCO and ArtEmis in lexical diversity.</li>
+            </ul>
 
-              <h3 style="font-size:1.35em; color:#7d3c98; margin-top:28px; margin-bottom:12px;">Hierarchical Annotation</h3>
-              <ul>
-                <li><strong>Content Description:</strong> Detailed narratives of the scene integrating emotional cues.</li>
-                <li><strong>Visual Attributes:</strong> Structured descriptions for five key elements: <em>Brushwork</em> (stroke thickness, rhythm), <em>Composition</em> (symmetry, focal points), <em>Color</em> (hue palettes, harmony), <em>Line</em> (curvature, continuity), and <em>Light</em> (contrast, atmospheric effects).</li>
-                <li><strong>Valence and Arousal (VA):</strong> Continuous values based on Russell's Circumplex Model.</li>
-                <li><strong>Dominant Emotion:</strong> 12 representative categories across the VA space (e.g., Excited, Happy, Sad, Bored, Calm, etc.).</li>
-                <li><strong>Therapeutic Potential:</strong> Labels indicating psychological benefits (e.g., "Relieve Stress").</li>
-              </ul>
+            <h3>Hierarchical Annotation</h3>
+            <ul>
+              <li><strong>Content Description:</strong> Detailed narratives of the scene integrating emotional cues.</li>
+              <li><strong>Visual Attributes:</strong> Structured descriptions for five key elements: <em>Brushwork</em> (stroke thickness, rhythm), <em>Composition</em> (symmetry, focal points), <em>Color</em> (hue palettes, harmony), <em>Line</em> (curvature, continuity), and <em>Light</em> (contrast, atmospheric effects).</li>
+              <li><strong>Valence and Arousal (VA):</strong> Continuous values based on Russell's Circumplex Model.</li>
+              <li><strong>Dominant Emotion:</strong> 12 representative categories across the VA space (e.g., Excited, Happy, Sad, Bored, Calm, etc.).</li>
+              <li><strong>Therapeutic Potential:</strong> Labels indicating psychological benefits (e.g., "Relieve Stress").</li>
+            </ul>
 
-              <div class="table-responsive" style="margin-top: 24px;">
-                <table class="dataset-table">
-                  <caption>Table 1. Comparison of Emotion-related Datasets.</caption>
-                  <thead>
-                    <tr>
-                      <th>Dataset</th><th>Image Type</th><th>Label Source</th><th>Tasks</th><th>Images</th><th>VA</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>Artemis</td><td>Art</td><td>Human</td><td>G&amp;R</td><td>80K</td><td>‚ú?/td></tr>
-                    <tr><td>EmoSet</td><td>Photo/Art</td><td>Human&amp;LLM</td><td>G&amp;R</td><td>3300K</td><td>‚ú?/td></tr>
-                    <tr class="featured-row"><td>EmoArt (Ours)</td><td>Art</td><td>Human&amp;LLM</td><td>G&amp;R</td><td>130K</td><td>‚ú?/td></tr>
-                  </tbody>
-                </table>
-              </div>
+            <div class="table-responsive">
+              <table class="dataset-table">
+                <caption>Table 1. Comparison of Emotion-related Datasets.</caption>
+                <thead>
+                  <tr>
+                    <th>Dataset</th>
+                    <th>Image Type</th>
+                    <th>Label Source</th>
+                    <th>Tasks</th>
+                    <th>Images</th>
+                    <th>VA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Artemis</td>
+                    <td>Art</td>
+                    <td>Human</td>
+                    <td>G&amp;R</td>
+                    <td>80K</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>EmoSet</td>
+                    <td>Photo/Art</td>
+                    <td>Human&amp;LLM</td>
+                    <td>G&amp;R</td>
+                    <td>3300K</td>
+                    <td></td>
+                  </tr>
+                  <tr class="featured-row">
+                    <td>EmoArt (Ours)</td>
+                    <td>Art</td>
+                    <td>Human&amp;LLM</td>
+                    <td>G&amp;R</td>
+                    <td>130K</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="col-2"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Track 1 -->
-    <section id="track1" class="services section-bg-alt">
+    <section id="track1" class="services">
       <div class="container">
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+        <div class="section-title">
           <h2>Track 1: Emotion-Aware Artistic Image Generation</h2>
-          <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-              <div class="track-card">
-                <p><strong>Problem Statement:</strong> Given a multimodal prompt <em>P = {T_desc, S_style, E_target}</em> describing semantic content, artistic movement, and desired emotional state (via VA values or category), the goal is to generate an image <em>I_gen</em> that fulfills all three conditions.</p>
-                <p><strong>Scientific Challenge:</strong> Participants must develop models that can disentangle style from emotion. For example, generating an "Expressionist" painting (typically high arousal) that is "Calm" (low arousal) is non-trivial. Successful models must learn to subtly manipulate visual attributes to achieve a hybrid state.</p>
-                <p><strong>Baseline Model:</strong> We provide a fine-tuned <strong>FLUX.1-dev</strong> model using LoRA on a curated subset of 50 images per style, which significantly outperforms vanilla SDXL and PixArt-sigma in Brushstroke and Color Quality.</p>
-                <p><strong>Evaluation Metrics:</strong> The final ranking balances perceptual quality and semantic alignment using:</p>
-                <ul>
-                  <li><strong>Fr√©chet Inception Distance (FID):</strong> For distributional similarity and image diversity.</li>
-                  <li><strong>Attribute Alignment Score (AAS):</strong> A novel metric utilizing a fine-tuned MiniCPM-V-2.6 to verify if generated images faithfully realize requested artistic attributes.</li>
-                  <li><strong>LPIPS Perceptual Similarity:</strong> For structural coherence at a local level.</li>
-                </ul>
-              </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10">
+            <div class="track-card">
+              <p><strong>Problem Statement:</strong> Given a multimodal prompt <em>P = {T_desc, S_style, E_target}</em> describing semantic content, artistic movement, and desired emotional state (via VA values or category), the goal is to generate an image <em>I_gen</em> that fulfills all three conditions.</p>
+              <p><strong>Scientific Challenge:</strong> Participants must develop models that can disentangle style from emotion. For example, generating an "Expressionist" painting (typically high arousal) that is "Calm" (low arousal) is non-trivial. Successful models must learn to subtly manipulate visual attributes to achieve a hybrid state.</p>
+              <p><strong>Baseline Model:</strong> We provide a fine-tuned <strong>FLUX.1-dev</strong> model using LoRA on a curated subset of 50 images per style, which significantly outperforms vanilla SDXL and PixArt-sigma in Brushstroke and Color Quality.</p>
+              <p><strong>Evaluation Metrics:</strong> The final ranking balances perceptual quality and semantic alignment using:</p>
+              <ul>
+                <li><strong>Fr√©chet Inception Distance (FID):</strong> For distributional similarity and image diversity.</li>
+                <li><strong>Attribute Alignment Score (AAS):</strong> A novel metric utilizing a fine-tuned MiniCPM-V-2.6 to verify if generated images faithfully realize requested artistic attributes.</li>
+                <li><strong>LPIPS Perceptual Similarity:</strong> For structural coherence at a local level.</li>
+              </ul>
             </div>
-            <div class="col-2"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Track 2 -->
-    <section id="track2" class="services">
+    <section id="track2" class="services section-bg-alt">
       <div class="container">
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+        <div class="section-title">
           <h2>Track 2: Multidimensional Art Emotion Understanding</h2>
-          <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-              <div class="track-card">
-                <p><strong>Problem Statement:</strong> Given an input artwork, a model is expected to produce a report covering emotion prediction, binary VA prediction, and textual attribute analysis (Brushwork, Composition, Color, Line, Light).</p>
-                <p><strong>Scientific Challenge:</strong> Connecting low-level visual patterns to high-level affective judgments. Models should explain emotions through interpretable attribute evidence, moving toward automated, controllable "Art Critics."</p>
-                <p><strong>Baseline Model:</strong> We provide a baseline using <strong>Qwen3-VL</strong>, a strong vision-language model prompted to perform multi-head prediction and produce faithful natural-language rationales.</p>
-                <p><strong>Evaluation Metrics:</strong> The official leaderboard restricts rankings to standardized indicators:</p>
-                <ul>
-                  <li><strong>Emotion Classification (12-way):</strong> Top-1 Accuracy as the primary metric and Macro F1-score to account for class imbalance.</li>
-                  <li><strong>Valence &amp; Arousal Prediction (binary):</strong> Accuracy and Macro F1-score for global emotional polarity and intensity.</li>
-                </ul>
-                <hr style="margin: 25px 0;">
-                <p><strong>Human Expert Evaluation (Final Phase):</strong> For top-ranked submissions across both tracks, we conduct an additional qualitative evaluation performed by human experts with formal training in art and visual design to holistically assess emotionally intelligent artistic generation and understanding.</p>
-              </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10">
+            <div class="track-card">
+              <p><strong>Problem Statement:</strong> Given an input artwork, a model is expected to produce a report covering emotion prediction, binary VA prediction, and textual attribute analysis (Brushwork, Composition, Color, Line, Light).</p>
+              <p><strong>Scientific Challenge:</strong> Connecting low-level visual patterns to high-level affective judgments. Models should explain emotions through interpretable attribute evidence, moving toward automated, controllable "Art Critics."</p>
+              <p><strong>Baseline Model:</strong> We provide a baseline using <strong>Qwen3-VL</strong>, a strong vision-language model prompted to perform multi-head prediction and produce faithful natural-language rationales.</p>
+              <p><strong>Evaluation Metrics:</strong> The official leaderboard restricts rankings to standardized indicators:</p>
+              <ul>
+                <li><strong>Emotion Classification (12-way):</strong> Top-1 Accuracy as the primary metric and Macro F1-score to account for class imbalance.</li>
+                <li><strong>Valence &amp; Arousal Prediction (binary):</strong> Accuracy and Macro F1-score for global emotional polarity and intensity.</li>
+              </ul>
+              <hr style="margin: 24px 0; border-color: var(--color-border);">
+              <p><strong>Human Expert Evaluation (Final Phase):</strong> For top-ranked submissions across both tracks, we conduct an additional qualitative evaluation performed by human experts with formal training in art and visual design to holistically assess emotionally intelligent artistic generation and understanding.</p>
             </div>
-            <div class="col-2"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="logos" style="padding: 40px 0; border-top: 1px solid #eee;">
+    <section id="logos">
       <div class="container text-center">
-        <img src="images/logo/log_ensemble.jpg" class="img-fluid" alt="Partner Logos" style="max-width: 80%; opacity: 0.8;">
+        <img src="images/logo/log_ensemble.jpg" class="img-fluid" alt="Partner Logos" style="max-width: 80%;">
       </div>
     </section>
 
@@ -186,7 +199,7 @@
 
   <footer id="footer">
     <div class="container">
-      <div class="copyright">&copy; Copyright <strong><span>AffectiveArt Challenge 2026</span></strong>. All Rights Reserved</div>
+      <div class="copyright">&copy; Copyright <strong>AffectiveArt Challenge 2026</strong>. All Rights Reserved</div>
     </div>
   </footer>
 
@@ -200,4 +213,5 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
+
 </html>
