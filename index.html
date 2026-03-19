@@ -1,468 +1,1526 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AffectiveArt Challenge 2026 | ACM Multimedia Grand Challenge</title>
+    <link rel="shortcut icon" href="images/logo/icon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #1a1a1a;
+            --color-secondary: #666;
+            --color-accent: #8b5cf6;
+            --color-accent-light: #ede9fe;
+            --color-bg: #fafafa;
+            --color-white: #ffffff;
+            --color-border: #e5e5e5;
+            --color-muted: #888;
+            --font-main: 'Lato', sans-serif;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            --radius: 8px;
+        }
 
-  <title>AffectiveArt Challenge 2026 | ACM Multimedia Grand Challenge</title>
-  <meta content="ACM Multimedia 2026 Grand Challenge — Fine-Grained Emotion Understanding and Generation in Artistic Images" name="description">
-  <meta content="affective computing, art, emotion, AIGC, challenge, ACM Multimedia 2026" name="keywords">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <link rel="shortcut icon" href="images/logo/icon.png" type="image/x-icon">
+        html {
+            scroll-behavior: smooth;
+        }
 
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        body {
+            font-family: var(--font-main);
+            font-weight: 400;
+            color: var(--color-primary);
+            background-color: var(--color-bg);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
 
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link href="assets/css/custom.css" rel="stylesheet">
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 250, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(229, 229, 229, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-sm);
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-secondary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            position: relative;
+            padding: 6px 10px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            color: var(--color-white);
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+            transform: translateY(-50px);
+        }
+
+        .hero-main {
+            grid-column: 1;
+            margin-top: 20px;
+        }
+
+        .hero-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -2px;
+        }
+
+        .title-word {
+            display: block;
+        }
+
+        .title-year {
+            display: block;
+            font-size: 0.5em;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.2em;
+        }
+
+        .hero-desc {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.5;
+            max-width: 500px;
+        }
+
+        .hero-info {
+            grid-column: 2;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            text-align: right;
+            margin-top: 90px;
+        }
+
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .info-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .info-value a {
+            color: #34e89e;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .info-value a:hover {
+            border-bottom-color: #34e89e;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 1.5rem;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: var(--radius);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d64a3f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(232, 90, 79, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--color-primary);
+            border-color: white;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--color-accent), transparent);
+        }
+
+        /* Section Styles */
+        section {
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+        }
+
+        .section-header-left {
+            text-align: left;
+        }
+
+        .section-header-left .section-title {
+            padding-left: 20px;
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .section-header-left .section-title::after {
+            display: none;
+        }
+
+        .section-header-right {
+            text-align: right;
+        }
+
+        .section-header-right .section-title {
+            padding-right: 20px;
+            border-right: 4px solid var(--color-accent);
+        }
+
+        .section-header-right .section-title::after {
+            display: none;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-xs);
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--color-accent-light);
+            border-radius: 20px;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--color-accent);
+            border-radius: 2px;
+            margin: var(--spacing-xs) auto 0;
+        }
+
+        .section-header-left .section-title,
+        .section-header-right .section-title {
+            display: inline-block;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--color-secondary);
+            max-width: 900px;
+            font-weight: 300;
+        }
+
+        /* Content Block */
+        .content-block {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .content-block h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+            color: var(--color-primary);
+        }
+
+        .content-block h3:first-child {
+            margin-top: 0;
+        }
+
+        .content-block p {
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.8;
+        }
+
+        .content-block ul {
+            margin-bottom: var(--spacing-md);
+            padding-left: 1.5rem;
+            color: var(--color-secondary);
+        }
+
+        .content-block li {
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.7;
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .two-col.reverse {
+            direction: rtl;
+        }
+
+        .two-col.reverse > * {
+            direction: ltr;
+        }
+
+        .col-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+        }
+
+        .col-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .col-content p {
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .col-content ul {
+            padding-left: 1.2rem;
+            color: var(--color-secondary);
+        }
+
+        .col-content li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .stat-item {
+            background: var(--color-bg);
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            border-color: var(--color-accent);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-secondary);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: var(--color-white);
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .info-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-accent);
+        }
+
+        .info-card p {
+            font-size: 0.95rem;
+            color: var(--color-secondary);
+            margin: 0;
+        }
+
+        /* Track Cards */
+        .track-card {
+            background: var(--color-white);
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            margin-bottom: var(--spacing-md);
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .track-card:hover {
+            border-color: var(--color-accent);
+        }
+
+        .tracks-row .col-content {
+            display: flex;
+        }
+
+        .tracks-row .track-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Column Layout Helpers */
+        .col-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .col-visual {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            justify-content: center;
+        }
+
+        .track-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+
+        .track-card p {
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .track-card ul {
+            margin-top: var(--spacing-sm);
+            padding-left: 1.2rem;
+            color: var(--color-secondary);
+        }
+
+        /* Emotion Tags */
+        .emotion-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .emotion-tag {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            transition: all 0.3s;
+        }
+
+        .emotion-tag:hover {
+            background: var(--color-accent);
+            color: var(--color-white);
+            border-color: var(--color-accent);
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--color-bg) 0%, #f0f0f0 100%);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .data-table th {
+            font-weight: 700;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table tbody tr {
+            background: transparent;
+            transition: background 0.2s;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--color-bg);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table .highlight {
+            background: linear-gradient(90deg, var(--color-accent-light) 0%, rgba(245, 230, 229, 0.5) 100%);
+            font-weight: 700;
+        }
+
+        .data-table caption {
+            caption-side: top;
+            text-align: left;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-secondary);
+            font-size: 0.85rem;
+            padding: 0 4px;
+        }
+
+        /* Dates Table */
+        .dates-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .dates-table th,
+        .dates-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .dates-table th {
+            background: linear-gradient(135deg, var(--color-bg) 0%, #f0f0f0 100%);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dates-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dates-table td:first-child {
+            font-weight: 600;
+        }
+
+        .dates-table td:last-child {
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        .dates-table tbody tr {
+            background: transparent;
+            transition: background 0.2s;
+        }
+
+        .dates-table tbody tr:hover {
+            background: var(--color-bg);
+        }
+
+        /* Reg Step */
+        .reg-step-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-accent);
+            margin: var(--spacing-md) 0 var(--spacing-xs);
+        }
+
+        /* Rules Block */
+        .rules-block {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--color-border);
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rules-list > li {
+            padding: var(--spacing-sm) 0;
+            padding-left: 28px;
+            position: relative;
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-secondary);
+            line-height: 1.7;
+        }
+
+        .rules-list > li:last-child {
+            border-bottom: none;
+        }
+
+        .rules-list > li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: var(--spacing-sm);
+            width: 20px;
+            height: 20px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .rules-list ul {
+            margin-top: var(--spacing-xs);
+            padding-left: 1.5rem;
+        }
+
+        .rules-list ul li {
+            margin-bottom: 4px;
+        }
+
+        /* Organizers - Circular Style */
+        .organizers-row {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .organizers-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .organizer-item {
+            text-align: center;
+            flex: 0 0 auto;
+        }
+
+        .row-4 .organizer-item {
+            width: calc(25% - var(--spacing-md) * 3 / 4);
+            max-width: 200px;
+        }
+
+        .row-3 .organizer-item {
+            width: calc(25% - var(--spacing-md) * 3 / 4);
+            max-width: 200px;
+        }
+
+        .organizer-photo {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid var(--color-white);
+        }
+
+        .organizer-photo:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .organizer-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .organizer-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .organizer-name a {
+            color: var(--color-primary);
+        }
+
+        .organizer-name a:hover {
+            color: var(--color-accent);
+        }
+
+        .organizer-affiliation {
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            line-height: 1.4;
+        }
+
+        /* PC Members */
+        .pc-block {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--color-border);
+        }
+
+        .pc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-sm);
+        }
+
+        .pc-list li {
+            padding: var(--spacing-sm);
+            padding-left: 36px;
+            position: relative;
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+        }
+
+        .pc-list li:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .pc-list li::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #ff7b6e 100%);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(232, 90, 79, 0.3);
+        }
+
+        /* Partner Logos */
+        .partner-logos {
+            text-align: center;
+        }
+
+        .partner-logos img {
+            max-width: 80%;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: var(--spacing-md);
+            text-align: center;
+        }
+
+        .footer-content {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .footer-content strong {
+            color: #fff;
+        }
+
+        /* Section Backgrounds */
+        .section-alt {
+            background: var(--color-white);
+        }
+
+        /* Scroll Animations */
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-bottom {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s ease-out;
+        }
+
+        .slide-in-bottom.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays for children */
+        .slide-in-left > *:nth-child(1) { transition-delay: 0.1s; }
+        .slide-in-left > *:nth-child(2) { transition-delay: 0.2s; }
+        .slide-in-left > *:nth-child(3) { transition-delay: 0.3s; }
+
+        .slide-in-right > *:nth-child(1) { transition-delay: 0.1s; }
+        .slide-in-right > *:nth-child(2) { transition-delay: 0.2s; }
+        .slide-in-right > *:nth-child(3) { transition-delay: 0.3s; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .two-col.reverse {
+                direction: ltr;
+            }
+
+            .tracks-row .col-content {
+                display: block;
+            }
+
+            .organizers-row {
+                flex-wrap: wrap;
+            }
+
+            .row-4 .organizer-item,
+            .row-3 .organizer-item {
+                width: calc(50% - var(--spacing-sm) / 2);
+                max-width: none;
+            }
+
+            .content-block {
+                padding: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-logo {
+                font-size: 0.75rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: var(--spacing-md);
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-info {
+                text-align: center;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: var(--spacing-sm);
+            }
+
+            .info-block {
+                align-items: center;
+            }
+
+            .hero-desc {
+                margin: 0 auto;
+            }
+
+            .section-header-left,
+            .section-header-right {
+                text-align: center;
+            }
+
+            .section-header-left .section-title,
+            .section-header-right .section-title {
+                padding-left: 0;
+                padding-right: 0;
+                border-left: none;
+                border-right: none;
+            }
+
+            .section-header-left .section-title::after,
+            .section-header-right .section-title::after {
+                display: block;
+                margin: var(--spacing-xs) auto 0;
+            }
+
+            .row-4 .organizer-item,
+            .row-3 .organizer-item {
+                width: 100%;
+            }
+
+            .organizer-photo {
+                width: 140px;
+                height: 140px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            section {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-  <header id="header" class="fixed-top header-transparent">
-    <div class="container d-flex align-items-center justify-content-between position-relative">
-      <div class="logo">
-        <h1><a href="index.html">AffectiveArt Challenge @ ACM MM 2026</a></h1>
-      </div>
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link active" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="challenge.html">Challenge</a></li>
-          <li><a class="nav-link" href="dates.html">Dates</a></li>
-          <li><a class="nav-link" href="registration.html">Registration</a></li>
-          <li><a class="nav-link" href="info.html">Rules</a></li>
-          <li><a class="nav-link" href="organisers.html">Organizers</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>
-    </div>
-  </header>
-
-  <section id="hero">
-    <div class="hero-container">
-      <h1>AffectiveArt Challenge 2026</h1>
-      <h2>Fine-Grained Emotion Understanding and Generation in Artistic Images</h2>
-      <h2>
-        <a href="https://www.acmmm2026.org/" target="_blank">Grand Challenge at ACM Multimedia 2026</a>
-      </h2>
-      <h2>Rio de Janeiro, Brazil &nbsp;|&nbsp; November 2026</h2>
-    </div>
-  </section>
-
-  <main id="main">
-
-    <section id="intro" class="services">
-      <div class="container slide-in-left">
-        <div class="section-title">
-          <h2>Introduction</h2>
-        </div>
-        
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-12">
-            
-            <p class="lead">
-              The <strong>ACM Multimedia 2026 Grand Challenge</strong> invites you to participate in the 
-              <strong>AffectiveArt Challenge 2026: Fine-Grained Emotion Understanding and Generation in Artistic Images</strong>.
-            </p>
-            
-            <h3>The Challenge of Affective Intelligence</h3>
-            <p>
-              With the scaling of large language models and the emergence of strong instruction-following agents, AI systems have made striking progress in logical reasoning and generation. Yet, these advances do not automatically translate into affective intelligence. Emotion understanding and artistic appreciation are rooted in subjective human experience, cultural context, and subtle perceptual cues.
-            </p>
-            <p>
-              In fine art, meaning is often conveyed indirectly through visual decisions—such as brushstroke rhythm, tonal contrast, color harmony, spatial tension, and compositional balance—rather than through explicit objects alone. Current generative models, largely trained on web-scale photographic data, tend to prioritize semantic correctness over affective coherence. They frequently treat emotion as a superficial style token, producing outputs that are semantically correct yet affectively ambiguous.
-            </p>
-            
-            <h3>What Makes This Challenge Unique</h3>
-            <p>
-              Bridging this gap requires benchmarks connecting what is depicted with how emotion is expressed visually:
-            </p>
-            
-            <ul>
-              <li><strong>Large-Scale Dataset:</strong> Built upon the EmoArt dataset with 132,664 artworks across 56 artistic styles.</li>
-              <li><strong>Hierarchical Annotations:</strong> Structured affective annotations including visual attributes (brushwork, composition, color, line, light) and therapeutic potential.</li>
-              <li><strong>Two Complementary Tracks:</strong> Focusing on both emotionally coherent synthesis (Track 1) and fine-grained affect recognition (Track 2).</li>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">AffectiveArt Challenge @ ACM MM 2026</a>
+            <ul class="nav-links">
+                <li><a href="#intro" class="active">Home</a></li>
+                <li><a href="#tracks">Challenge</a></li>
+                <li><a href="#dates">Dates</a></li>
+                <li><a href="#registration">Registration</a></li>
+                <li><a href="#rules">Rules</a></li>
+                <li><a href="#organizers">Organizers</a></li>
             </ul>
-            
-            <h3>Be Part of the Future</h3>
-            <p>
-              This challenge at ACM Multimedia 2026 aims to be a sustainable benchmark initiative advancing affective computing and emotion-aware artistic AI. This is your chance to push the boundaries—we can't wait to see what you create!
-            </p>
-            
-          </div>
         </div>
-      </div>
-    </section>
+    </nav>
 
-    <section id="tracks" class="services section-bg-alt">
-      <div class="container slide-in-right">
-        <div class="section-title">
-          <h2>Challenge Tracks &amp; Submission</h2>
-        </div>
-        
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-12">
-            <p class="lead">
-              AffectiveArt Challenge 2026 consists of two complementary tracks:
-            </p>
-            
-            <div class="track-card">
-              <h3>Track 1: Emotion-Aware Artistic Image Generation</h3>
-              <p><strong>Problem Statement:</strong> Given a multimodal prompt describing semantic content, artistic movement, and desired emotional state, the goal is to generate an image that fulfills all three conditions.</p>
-              <p><strong>Scientific Challenge:</strong> Participants must develop models that can disentangle style from emotion. Successful models must learn to subtly manipulate visual attributes to achieve a hybrid state (e.g., a "Calm" Expressionist painting).</p>
-              <p><strong>Evaluation Metrics:</strong> Fréchet Inception Distance (FID), Attribute Alignment Score (AAS), and LPIPS Perceptual Similarity.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-main">
+                <span class="hero-label">Grand Challenge</span>
+                <h1 class="hero-title">
+                    <span class="title-word">AffectiveArt</span>
+                    <span class="title-year">2026</span>
+                </h1>
+                <p class="hero-desc">Fine-Grained Emotion Understanding<br>&amp; Generation in Artistic Images</p>
+                <div class="hero-actions">
+                    <a href="#tracks" class="btn btn-primary">Explore Challenge</a>
+                    <a href="https://huggingface.co/datasets/printblue/EmoArt130k" target="_blank" class="btn btn-secondary">Access Dataset</a>
+                </div>
             </div>
-            
-            <div class="track-card">
-              <h3>Track 2: Multidimensional Art Emotion Understanding</h3>
-              <p><strong>Problem Statement:</strong> Given an input artwork, a model is expected to produce a report covering emotion prediction, binary VA prediction, and textual attribute analysis (Brushwork, Composition, Color, Line, Light).</p>
-              <p><strong>Scientific Challenge:</strong> Connecting low-level visual patterns to high-level affective judgments. Models should explain emotions through interpretable attribute evidence.</p>
-              <p><strong>Evaluation Metrics:</strong> Top-1 Accuracy and Macro F1-score for 12-way Emotion Classification, Valence Prediction, and Arousal Prediction.</p>
+            <div class="hero-info">
+                <div class="info-block">
+                    <span class="info-label">Host</span>
+                    <a href="https://www.acmmm2026.org/" target="_blank" class="info-value">ACM Multimedia 2026</a>
+                </div>
+                <div class="info-block">
+                    <span class="info-label">Location</span>
+                    <span class="info-value">Rio de Janeiro, Brazil</span>
+                </div>
+                <div class="info-block">
+                    <span class="info-label">Date</span>
+                    <span class="info-value">November 2026</span>
+                </div>
             </div>
-            
-          </div>
         </div>
-      </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
     </section>
 
-    <section id="dataset" class="services">
-      <div class="container slide-in-left">
-        <div class="section-title">
-          <h2>Dataset</h2>
-        </div>
-        
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-12">
-            
-            <h3>EmoArt Dataset</h3>
-            <p>
-              The foundation of this challenge is the <strong>EmoArt dataset</strong>, which comprises 132,664 artworks across 56 artistic styles with structured affective annotations. It creates a bridge between Computer Vision, Art History, and Psychology.
-            </p>
-            
-            <ul>
-              <li><strong>Data Collection:</strong> Over 200,000 raw images aggregated from WikiArt, The Metropolitan Museum of Art, etc.</li>
-              <li><strong>Filtering:</strong> Four-stage protocol including Art Form Filtering (paintings only), Content Safety, Quality Assurance, and Category Balancing.</li>
-              <li><strong>Diversity:</strong> Includes significant representation of non-Western art, such as Ukiyo-e and Chinese Ink Wash painting.</li>
-            </ul>
-            
-            <h3>Hierarchical Annotation</h3>
-            <ul>
-              <li><strong>Content Description:</strong> Detailed narratives of the scene integrating emotional cues.</li>
-              <li><strong>Visual Attributes:</strong> Structured descriptions for five key elements: Brushwork, Composition, Color, Line, and Light.</li>
-              <li><strong>Valence and Arousal (VA):</strong> Continuous values based on Russell's Circumplex Model.</li>
-              <li><strong>Dominant Emotion:</strong> 12 categories including Excited, Happy, Sad, Bored, Calm, etc.</li>
-              <li><strong>Therapeutic Potential:</strong> Labels indicating psychological benefits (e.g., "Relieve Stress").</li>
-            </ul>
-            
-            <div class="table-responsive">
-              <table class="dataset-table">
-                <caption>Table 1. Comparison of Emotion-related Datasets</caption>
-                <thead>
-                  <tr>
-                    <th>Dataset</th>
-                    <th>Image Type</th>
-                    <th>Label Source</th>
-                    <th>Tasks</th>
-                    <th>Images</th>
-                    <th>VA</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Artemis</td>
-                    <td>Art</td>
-                    <td>Human</td>
-                    <td>G&amp;R</td>
-                    <td>80K</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>EmoSet</td>
-                    <td>Photo/Art</td>
-                    <td>Human&amp;LLM</td>
-                    <td>G&amp;R</td>
-                    <td>3300K</td>
-                    <td></td>
-                  </tr>
-                  <tr class="featured-row">
-                    <td>EmoArt (Ours)</td>
-                    <td>Art</td>
-                    <td>Human&amp;LLM</td>
-                    <td>G&amp;R</td>
-                    <td>130K</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+    <!-- Introduction Section -->
+    <section id="intro">
+        <div class="container">
+            <div class="section-header section-header-left">
+                <h2 class="section-title">Introduction</h2>
             </div>
-            
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="dates" class="services section-bg-alt">
-      <div class="container slide-in-right">
-        <div class="section-title">
-          <h2>Important Dates</h2>
-        </div>
-        
-        <div class="row justify-content-center">
-          <div class="col-lg-8 col-md-10">
-            <p style="text-align: center; margin-bottom: 24px;">
-              All deadlines are at 11:59 p.m. 
-              <a href="https://www.timeanddate.com/time/zones/aoe" target="_blank">Anywhere on Earth (AoE)</a>.
-            </p>
-            
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Event</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Data, baseline paper &amp; code available</th>
-                    <td>10 April, 2026</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Results submission open</th>
-                    <td>15 May, 2026</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Results submission deadline</th>
-                    <td>20 June, 2026</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Deadline for paper submission</th>
-                    <td>13 July, 2026</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Paper acceptance notification</th>
-                    <td>TBD</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Deadline for camera-ready papers</th>
-                    <td>TBD</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <p style="font-size: 13px; color: var(--color-muted); text-align: center; margin-top: 16px;">
-              *All dates are AoE (UTC−12), 23:59 of the specified day
-            </p>
-            
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="registration" class="services">
-      <div class="container slide-in-left">
-        <div class="section-title">
-          <h2>Registration</h2>
-        </div>
-        
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-12">
-            
-            <div class="reg-step-title">Step 1: Data Access</div>
-            <p>
-              The EmoArt dataset is hosted on Hugging Face and is accessible at
-              <a href="https://huggingface.co/datasets/printblue/EmoArt130k" target="_blank">
-                <strong>https://huggingface.co/datasets/printblue/EmoArt130k</strong>
-              </a>
-              under a CC BY-NC 4.0 license.
-            </p>
-            
-            <div class="reg-step-title">Step 2: EULA</div>
-            <p>
-              Participants must sign an <strong>End User License Agreement (EULA)</strong> ensuring the data is used for academic research only. Please contact
-              <a href="mailto:hongxiaxie@jlu.edu.cn">hongxiaxie@jlu.edu.cn</a>
-              for the EULA form and submission instructions.
-            </p>
-            
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="rules" class="services section-bg-alt">
-      <div class="container slide-in-right">
-        <div class="section-title">
-          <h2>Rules for Participants</h2>
-        </div>
-        
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-12">
-            
-            <ul>
-              <li><strong>Access to Data:</strong> The EmoArt dataset is available under a CC BY-NC 4.0 license for academic research.</li>
-              <li><strong>Use of Pre-trained Models:</strong> Participants may freely use pre-trained weights obtained from open-source models (e.g., FLUX.1, SDXL).</li>
-              <li><strong>Evaluation Integrity:</strong> Official rankings are computed on a hidden test set evaluated securely to prevent data leakage.</li>
-              <li><strong>Submission Format:</strong> Participants will submit generated images (Track 1) or prediction files/code (Track 2). Docker containers may be required for verification.</li>
-              <li>
-                <strong>Evaluation Metrics:</strong>
+            <div class="content-block">
+                <p class="lead">
+                    The <strong>ACM Multimedia 2026 Grand Challenge</strong> invites you to participate in the 
+                    <strong>AffectiveArt Challenge 2026: Fine-Grained Emotion Understanding and Generation in Artistic Images</strong>.
+                </p>
+                
+                <h3>The Challenge of Affective Intelligence</h3>
+                <p>
+                    With the scaling of large language models and the emergence of strong instruction-following agents, AI systems have made striking progress in logical reasoning and generation. Yet, these advances do not automatically translate into affective intelligence. Emotion understanding and artistic appreciation are rooted in subjective human experience, cultural context, and subtle perceptual cues.
+                </p>
+                <p>
+                    In fine art, meaning is often conveyed indirectly through visual decisions—such as brushstroke rhythm, tonal contrast, color harmony, spatial tension, and compositional balance—rather than through explicit objects alone. Current generative models, largely trained on web-scale photographic data, tend to prioritize semantic correctness over affective coherence. They frequently treat emotion as a superficial style token, producing outputs that are semantically correct yet affectively ambiguous.
+                </p>
+                
+                <h3>What Makes This Challenge Unique</h3>
+                <p>
+                    Bridging this gap requires benchmarks connecting what is depicted with how emotion is expressed visually:
+                </p>
+                
                 <ul>
-                  <li><strong>Track 1:</strong> FID, Attribute Alignment Score (AAS), and LPIPS</li>
-                  <li><strong>Track 2:</strong> Top-1 Accuracy and Macro F1-score for Emotion, Valence, and Arousal</li>
+                    <li><strong>Large-Scale Dataset:</strong> Built upon the EmoArt dataset with 132,664 artworks across 56 artistic styles.</li>
+                    <li><strong>Hierarchical Annotations:</strong> Structured affective annotations including visual attributes (brushwork, composition, color, line, light) and therapeutic potential.</li>
+                    <li><strong>Two Complementary Tracks:</strong> Focusing on both emotionally coherent synthesis (Track 1) and fine-grained affect recognition (Track 2).</li>
                 </ul>
-              </li>
-              <li><strong>Human Evaluation:</strong> Top-ranked submissions will undergo qualitative assessment by art and design experts.</li>
-              <li><strong>Ethical Guidelines:</strong> Generation of deepfakes or offensive content is strictly prohibited.</li>
-            </ul>
-            
-          </div>
+                
+                <h3>Be Part of the Future</h3>
+                <p>
+                    This challenge at ACM Multimedia 2026 aims to be a sustainable benchmark initiative advancing affective computing and emotion-aware artistic AI. This is your chance to push the boundaries—we can't wait to see what you create!
+                </p>
+            </div>
         </div>
-      </div>
     </section>
 
-    <section id="organizer">
-      <div class="container">
-        <div class="section-title">
-          <h2>Organizers</h2>
+    <!-- Challenge Tracks Section -->
+    <section id="tracks" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Challenge Tracks & Submission</h2>
+            </div>
+
+            <p class="lead slide-in-bottom" style="text-align: center; margin-bottom: var(--spacing-lg);">
+                AffectiveArt Challenge 2026 consists of two complementary tracks:
+            </p>
+
+            <div class="two-col tracks-row slide-in-left">
+                <div class="col-content">
+                    <div class="track-card">
+                        <h3>Track 1: Emotion-Aware Artistic Image Generation</h3>
+                        <p><strong>Problem Statement:</strong> Given a multimodal prompt describing semantic content, artistic movement, and desired emotional state, the goal is to generate an image that fulfills all three conditions.</p>
+                        <p><strong>Scientific Challenge:</strong> Participants must develop models that can disentangle style from emotion. Successful models must learn to subtly manipulate visual attributes to achieve a hybrid state (e.g., a "Calm" Expressionist painting).</p>
+                        <p><strong>Evaluation Metrics:</strong> Fréchet Inception Distance (FID), Attribute Alignment Score (AAS), and LPIPS Perceptual Similarity.</p>
+                    </div>
+                </div>
+                <div class="col-content">
+                    <div class="track-card">
+                        <h3>Track 2: Multidimensional Art Emotion Understanding</h3>
+                        <p><strong>Problem Statement:</strong> Given an input artwork, a model is expected to produce a report covering emotion prediction, binary VA prediction, and textual attribute analysis (Brushwork, Composition, Color, Line, Light).</p>
+                        <p><strong>Scientific Challenge:</strong> Connecting low-level visual patterns to high-level affective judgments. Models should explain emotions through interpretable attribute evidence.</p>
+                        <p><strong>Evaluation Metrics:</strong> Top-1 Accuracy and Macro F1-score for 12-way Emotion Classification, Valence Prediction, and Arousal Prediction.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="container-fluid" style="width: 85%;">
-        <div class="row justify-content-center row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4">
-
-          <div class="col">
-            <div class="member">
-              <div class="organizer"><img src="images/hongxiaxie.jpg" alt="Hongxia Xie" loading="lazy"></div>
-              <div class="member-info">
-                <h4><a href="mailto:hongxiaxie@jlu.edu.cn">Hongxia Xie</a></h4>
-                <span>Jilin University</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="member">
-              <div class="organizer"><img src="images/wenhuangcheng.jpg" alt="Wen-Huang Cheng" loading="lazy"></div>
-              <div class="member-info">
-                <h4>Wen-Huang Cheng</h4>
-                <span>National Taiwan University</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="member">
-              <div class="organizer"><img src="images/honghanshuai.jpg" alt="Hong-Han Shuai" loading="lazy"></div>
-              <div class="member-info">
-                <h4>Hong-Han Shuai</h4>
-                <span>National Yang Ming Chiao Tung University</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="member">
-              <div class="organizer"><img src="images/jianlongfu.jpg" alt="Jianlong Fu" loading="lazy"></div>
-              <div class="member-info">
-                <h4>Jianlong Fu</h4>
-                <span>Microsoft Research Asia</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="member">
-              <div class="organizer"><img src="images/sichengzhao.jpg" alt="Sicheng Zhao" loading="lazy"></div>
-              <div class="member-info">
-                <h4>Sicheng Zhao</h4>
-                <span>Tsinghua University</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="member">
-              <div class="organizer"><img src="images/SanghoonLee.png" alt="Sanghoon Lee" loading="lazy"></div>
-              <div class="member-info">
-                <h4>Sanghoon Lee</h4>
-                <span>Yonsei University</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="member">
-              <div class="organizer"><img src="images/chengzhang.jpg" alt="Cheng Zhang" loading="lazy"></div>
-              <div class="member-info">
-                <h4><a href="mailto:zhangcheng2122@mails.jlu.edu.cn">Cheng Zhang</a></h4>
-                <span>Jilin University</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
     </section>
 
+    <!-- Dataset Section -->
+    <section id="dataset">
+        <div class="container">
+            <div class="two-col">
+                <div class="col-content slide-in-left">
+                    <h2 class="section-title">Dataset</h2>
+
+                    <h3>EmoArt Dataset</h3>
+                    <p>
+                        The foundation of this challenge is the <strong>EmoArt dataset</strong>, which comprises 132,664 artworks across 56 artistic styles with structured affective annotations. It creates a bridge between Computer Vision, Art History, and Psychology.
+                    </p>
+
+                    <ul>
+                        <li><strong>Data Collection:</strong> Over 200,000 raw images aggregated from WikiArt, The Metropolitan Museum of Art, etc.</li>
+                        <li><strong>Filtering:</strong> Four-stage protocol including Art Form Filtering (paintings only), Content Safety, Quality Assurance, and Category Balancing.</li>
+                        <li><strong>Diversity:</strong> Includes significant representation of non-Western art, such as Ukiyo-e and Chinese Ink Wash painting.</li>
+                    </ul>
+
+                    <h3>Hierarchical Annotation</h3>
+                    <ul>
+                        <li><strong>Content Description:</strong> Detailed narratives of the scene integrating emotional cues.</li>
+                        <li><strong>Visual Attributes:</strong> Structured descriptions for five key elements: Brushwork, Composition, Color, Line, and Light.</li>
+                        <li><strong>Valence and Arousal (VA):</strong> Continuous values based on Russell's Circumplex Model.</li>
+                        <li><strong>Dominant Emotion:</strong> 12 categories including Excited, Happy, Sad, Bored, Calm, etc.</li>
+                        <li><strong>Therapeutic Potential:</strong> Labels indicating psychological benefits (e.g., "Relieve Stress").</li>
+                    </ul>
+                </div>
+                <div class="col-visual slide-in-right">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">132K+</div>
+                            <div class="stat-label">Artworks</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">56</div>
+                            <div class="stat-label">Artistic Styles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Emotion Categories</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Annotation Dimensions</div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive" style="margin-top: var(--spacing-md);">
+                        <table class="data-table">
+                            <caption>Table 1. Comparison of Emotion-related Datasets</caption>
+                            <thead>
+                                <tr>
+                                    <th>Dataset</th>
+                                    <th>Image Type</th>
+                                    <th>Label Source</th>
+                                    <th>Tasks</th>
+                                    <th>Images</th>
+                                    <th>VA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Artemis</td>
+                                    <td>Art</td>
+                                    <td>Human</td>
+                                    <td>G&amp;R</td>
+                                    <td>80K</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>EmoSet</td>
+                                    <td>Photo/Art</td>
+                                    <td>Human&amp;LLM</td>
+                                    <td>G&amp;R</td>
+                                    <td>3300K</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>EmoArt (Ours)</td>
+                                    <td>Art</td>
+                                    <td>Human&amp;LLM</td>
+                                    <td>G&amp;R</td>
+                                    <td>130K</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Dates Section -->
+    <section id="dates" class="section-alt">
+        <div class="container">
+            <div class="section-header section-header-right">
+                <h2 class="section-title">Important Dates</h2>
+            </div>
+
+            <div class="content-block">
+                <p style="text-align: center; margin-bottom: var(--spacing-md);">
+                    All deadlines are at 11:59 p.m.
+                    <a href="https://www.timeanddate.com/time/zones/aoe" target="_blank">Anywhere on Earth (AoE)</a>.
+                </p>
+
+                <div class="table-responsive">
+                    <table class="dates-table">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Data, baseline paper &amp; code available</th>
+                                <td>25 March, 2026</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Results submission open</th>
+                                <td>20 April, 2026</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Results submission deadline</th>
+                                <td>10 May, 2026</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Deadline for paper submission</th>
+                                <td>28 May, 2026</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Paper acceptance notification</th>
+                                <td>16 July, 2026</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Deadline for camera-ready papers</th>
+                                <td>6 August, 2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p style="font-size: 0.85rem; color: var(--color-muted); text-align: center; margin-top: var(--spacing-md);">
+                    *All dates are AoE (UTC−12), 23:59 of the specified day
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="registration">
+        <div class="container">
+            <div class="section-header section-header-left">
+                <h2 class="section-title">Registration</h2>
+            </div>
+
+            <div class="content-block">
+                <div class="reg-step-title">Step 1: Data Access</div>
+                <p>
+                    The EmoArt dataset is hosted on Hugging Face and is accessible at
+                    <a href="https://huggingface.co/datasets/printblue/EmoArt130k" target="_blank">
+                        <strong>https://huggingface.co/datasets/printblue/EmoArt130k</strong>
+                    </a>
+                    under a CC BY-NC 4.0 license.
+                </p>
+
+                <div class="reg-step-title">Step 2: EULA</div>
+                <p>
+                    Participants must sign an <strong>End User License Agreement (EULA)</strong> ensuring the data is used for academic research only. Please contact
+                    <a href="mailto:hongxiaxie@jlu.edu.cn">hongxiaxie@jlu.edu.cn</a>
+                    for the EULA form and submission instructions.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rules Section -->
+    <section id="rules" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Rules for Participants</h2>
+            </div>
+            <div class="content-block">
+                <ul>
+                    <li><strong>Access to Data:</strong> The EmoArt dataset is available under a CC BY-NC 4.0 license for academic research.</li>
+                    <li><strong>Use of Pre-trained Models:</strong> Participants may freely use pre-trained weights obtained from open-source models (e.g., FLUX.1, SDXL).</li>
+                    <li><strong>Evaluation Integrity:</strong> Official rankings are computed on a hidden test set evaluated securely to prevent data leakage.</li>
+                    <li><strong>Submission Format:</strong> Participants will submit generated images (Track 1) or prediction files/code (Track 2). Docker containers may be required for verification.</li>
+                    <li>
+                        <strong>Evaluation Metrics:</strong>
+                        <ul>
+                            <li><strong>Track 1:</strong> FID, Attribute Alignment Score (AAS), and LPIPS</li>
+                            <li><strong>Track 2:</strong> Top-1 Accuracy and Macro F1-score for Emotion, Valence, and Arousal</li>
+                        </ul>
+                    </li>
+                    <li><strong>Human Evaluation:</strong> Top-ranked submissions will undergo qualitative assessment by art and design experts.</li>
+                    <li><strong>Ethical Guidelines:</strong> Generation of deepfakes or offensive content is strictly prohibited.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizers Section -->
+    <section id="organizers" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Organizers</h2>
+            </div>
+        </div>
+
+        <div class="container" style="max-width: 1000px;">
+            <!-- First row: 4 organizers -->
+            <div class="organizers-row row-4">
+                <div class="organizer-item">
+                    <div class="organizer-photo">
+                        <img src="images/hongxiaxie.jpg" alt="Hongxia Xie" loading="lazy">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="mailto:hongxiaxie@jlu.edu.cn">Hongxia Xie</a>
+                    </div>
+                    <div class="organizer-affiliation">Jilin University</div>
+                </div>
+
+                <div class="organizer-item">
+                    <div class="organizer-photo">
+                        <img src="images/chengzhang.jpg" alt="Cheng Zhang" loading="lazy">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="mailto:zhangcheng2122@mails.jlu.edu.cn">Cheng Zhang</a>
+                    </div>
+                    <div class="organizer-affiliation">Jilin University</div>
+                </div>
+
+                <div class="organizer-item">
+                    <div class="organizer-photo">
+                        <img src="images/wenhuangcheng.jpg" alt="Wen-Huang Cheng" loading="lazy">
+                    </div>
+                    <div class="organizer-name">Wen-Huang Cheng</div>
+                    <div class="organizer-affiliation">National Taiwan University</div>
+                </div>
+
+                <div class="organizer-item">
+                    <div class="organizer-photo">
+                        <img src="images/honghanshuai.jpg" alt="Hong-Han Shuai" loading="lazy">
+                    </div>
+                    <div class="organizer-name">Hong-Han Shuai</div>
+                    <div class="organizer-affiliation">National Yang Ming Chiao Tung University</div>
+                </div>
+            </div>
+
+            <!-- Second row: 3 organizers -->
+            <div class="organizers-row row-3">
+                <div class="organizer-item">
+                    <div class="organizer-photo">
+                        <img src="images/jianlongfu.jpg" alt="Jianlong Fu" loading="lazy">
+                    </div>
+                    <div class="organizer-name">Jianlong Fu</div>
+                    <div class="organizer-affiliation">Microsoft Research Asia</div>
+                </div>
+
+                <div class="organizer-item">
+                    <div class="organizer-photo">
+                        <img src="images/sichengzhao.jpg" alt="Sicheng Zhao" loading="lazy">
+                    </div>
+                    <div class="organizer-name">Sicheng Zhao</div>
+                    <div class="organizer-affiliation">Tsinghua University</div>
+                </div>
+
+                <div class="organizer-item">
+                    <div class="organizer-photo">
+                        <img src="images/SanghoonLee.png" alt="Sanghoon Lee" loading="lazy">
+                    </div>
+                    <div class="organizer-name">Sanghoon Lee</div>
+                    <div class="organizer-affiliation">Yonsei University</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Committee Section -->
     <section id="pc-members">
-      <div class="container">
-        <div class="section-title">
-          <h2>Program Committee</h2>
+        <div class="container">
+            <div class="section-header section-header-left">
+                <h2 class="section-title">Program Committee</h2>
+            </div>
+            <div class="content-block">
+                <ul>
+                    <li><strong>Ling Lo</strong>, Postdoctoral Researcher at National Yang Ming Chiao Tung University (NYCU).</li>
+                    <li><strong>Chieh-Yun Chen</strong>, Ph.D. Student at Georgia Institute of Technology.</li>
+                    <li><strong>Ziyun Li</strong>, Postdoctoral Researcher at KTH Royal Institute of Technology.</li>
+                    <li><strong>Jian-Yu Jiang-Lin</strong>, Ph.D. Student at National Taiwan University (NTU).</li>
+                    <li><strong>Kang-Yang Huang</strong>, Research Assistant at National Taiwan University (NTU).</li>
+                    <li><strong>Ling Zou</strong>, Ph.D. Student at National Taiwan University (NTU).</li>
+                    <li><strong>Xing Huang</strong>, Lianxin Digital.</li>
+                </ul>
+            </div>
         </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <ul>
-              <li><strong>Ling Lo</strong>, Postdoctoral Researcher at National Yang Ming Chiao Tung University (NYCU).</li>
-              <li><strong>Chieh-Yun Chen</strong>, Ph.D. Student at Georgia Institute of Technology.</li>
-              <li><strong>Ziyun Li</strong>, Postdoctoral Researcher at KTH Royal Institute of Technology.</li>
-              <li><strong>Jian-Yu Jiang-Lin</strong>, Ph.D. Student at National Taiwan University (NTU).</li>
-              <li><strong>Kang-Yang Huang</strong>, Research Assistant at National Taiwan University (NTU).</li>
-              <li><strong>Ling Zou</strong>, Ph.D. Student at National Taiwan University (NTU).</li>
-              <li><strong>Xing Huang</strong>, Lianxin Digital.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <section id="logos">
-      <div class="container text-center">
-        <img src="images/logo/log_ensemble.jpg" class="img-fluid" alt="Partner Logos" style="max-width: 80%;">
-      </div>
+    <!-- Partner Logos -->
+    <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+        <div class="container partner-logos">
+            <img src="images/logo/log_ensemble.jpg" alt="Partner Logos">
+        </div>
     </section>
 
-  </main>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            &copy; Copyright <strong>AffectiveArt Challenge 2026</strong>. All Rights Reserved<br>
+            ACM Multimedia 2026 Grand Challenge &nbsp;|&nbsp; Rio de Janeiro, Brazil
+        </div>
+    </footer>
 
-  <footer id="footer">
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>AffectiveArt Challenge 2026</strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        ACM Multimedia 2026 Grand Challenge &nbsp;|&nbsp; Rio de Janeiro, Brazil
-      </div>
-    </div>
-  </footer>
+    <script>
+        // Scroll animation observer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.slide-in-left, .slide-in-right, .slide-in-bottom');
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-    <i class="bi bi-arrow-up-short"></i>
-  </a>
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
 
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/slide-in-animation.js"></script>
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
-
 </html>
