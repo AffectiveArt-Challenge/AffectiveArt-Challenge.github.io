@@ -753,6 +753,22 @@
             margin-bottom: 4px;
         }
 
+        /* News List Update */
+        .news-item {
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-date {
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-right: 10px;
+        }
+
         /* Organizers - Circular Style */
         .organizers-row {
             display: flex;
@@ -1060,10 +1076,11 @@
             <a href="#" class="nav-logo">AffectiveArt Challenge @ ACM MM 2026</a>
             <ul class="nav-links">
                 <li><a href="#intro" class="active">Home</a></li>
+                <li><a href="#news">News</a></li>
                 <li><a href="#tracks">Challenge</a></li>
                 <li><a href="#dates">Dates</a></li>
                 <li><a href="#registration">Registration</a></li>
-                <li><a href="#rules">Rules</a></li>
+                <li><a href="#rules">Rules & Instructions</a></li>
                 <li><a href="#organizers">Organizers</a></li>
             </ul>
         </div>
@@ -1103,13 +1120,27 @@
             <div class="scroll-line"></div>
         </div>
     </section>
+    
+    <section id="news" class="section-alt">
+        <div class="container">
+            <div class="section-header section-header-left">
+                <h2 class="section-title">News</h2>
+            </div>
+            <div class="content-block slide-in-left">
+                <div class="news-item">
+                    <span class="news-date">[March 27, 2026]</span>
+                    Registration for the AffectiveArt Challenge 2026 is officially open! Check the <a href="#rules">instructions</a> and <a href="#registration">register your team here</a>.
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="intro">
         <div class="container">
             <div class="section-header section-header-left">
                 <h2 class="section-title">Introduction</h2>
             </div>
-            <div class="content-block">
+            <div class="content-block slide-in-bottom">
                 <p class="lead">
                     The <strong>ACM Multimedia 2026 Grand Challenge</strong> invites you to participate in the 
                     <strong>AffectiveArt Challenge 2026: Fine-Grained Emotion Understanding and Generation in Artistic Images</strong>.
@@ -1271,7 +1302,7 @@
                 <h2 class="section-title">Important Dates</h2>
             </div>
 
-            <div class="content-block">
+            <div class="content-block slide-in-bottom">
                 <p style="text-align: center; margin-bottom: var(--spacing-md);">
                     All deadlines are at 11:59 p.m.
                     <a href="https://www.timeanddate.com/time/zones/aoe" target="_blank">Anywhere on Earth (AoE)</a>.
@@ -1288,7 +1319,7 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Challenge Registration</th>
-                                <td>March 27, 2026</td>
+                                <td>March 27, 2026 - June 10, 2026</td>
                             </tr>
                             <tr>
                                 <th scope="row">Test Set Released</th>
@@ -1335,15 +1366,43 @@
                 <h2 class="section-title">Registration</h2>
             </div>
 
-            <div class="content-block">
+            <div class="content-block slide-in-left">
                 <p>
-                    The challenge registration will open on March 27, 2026. Please note that each team must be registered by a full-time researcher (e.g., a university faculty member or research scientist).
+                    The challenge registration is open from <strong>March 27, 2026 to June 10, 2026</strong>. Please note that each team must be registered by a full-time researcher (e.g., a university faculty member or research scientist).
                 </p>
+                <div style="margin-top: var(--spacing-md);">
+                    <a href="https://ecnvgo5j07bl.feishu.cn/share/base/form/shrcnstZsDs1PCKbKZ7JDi4NXhd" target="_blank" class="btn btn-primary">Registration Form</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="organizers" class="section-alt">
+    <section id="rules" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Instructions & Rules</h2>
+            </div>
+            
+            <div class="rules-block slide-in-bottom">
+                <ul class="rules-list">
+                    <li>
+                        <strong>Step 1: Register for the Challenge</strong><br>
+                        Please fill out our official <a href="https://ecnvgo5j07bl.feishu.cn/share/base/form/shrcnstZsDs1PCKbKZ7JDi4NXhd" target="_blank">registration form</a>. Remember that registration must be submitted by a full-time researcher.
+                    </li>
+                    <li>
+                        <strong>Step 2: Download the EmoArt Dataset</strong><br>
+                        Once your team is prepared, you can download the EmoArt dataset from our <a href="https://huggingface.co/datasets/printblue/EmoArt-130k" target="_blank">HuggingFace page</a> to begin developing and training your models.
+                    </li>
+                    <li>
+                        <strong>Step 3: Wait for the Test Set</strong><br>
+                        We will construct a <strong>hidden set of 2,000 items</strong> specifically for testing your model's real-world affective capabilities. The detailed evaluation metrics, testing modalities, and the test set will be officially released on <strong>April 20, 2026</strong>.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="organizers">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Organizers</h2>
@@ -1351,7 +1410,7 @@
         </div>
 
         <div class="container" style="max-width: 1000px;">
-            <div class="organizers-row row-4">
+            <div class="organizers-row row-4 slide-in-bottom">
                 <div class="organizer-item">
                     <div class="organizer-photo">
                         <img src="images/hongxiaxie.jpg" alt="Hongxia Xie" loading="lazy">
@@ -1389,7 +1448,7 @@
                 </div>
             </div>
 
-            <div class="organizers-row row-4">
+            <div class="organizers-row row-4 slide-in-bottom">
                 <div class="organizer-item">
                     <div class="organizer-photo">
                         <img src="images/honghanshuai.jpg" alt="Hong-Han Shuai" loading="lazy">
@@ -1425,12 +1484,12 @@
         </div>
     </section>
 
-    <section id="pc-members">
+    <section id="pc-members" class="section-alt">
         <div class="container">
             <div class="section-header section-header-left">
                 <h2 class="section-title">Program Committee</h2>
             </div>
-            <div class="content-block">
+            <div class="content-block slide-in-bottom">
                 <ul>
                     <li><strong>Zihan Li</strong>, Master Student at Jilin University.</li>
                     <li><strong>Yifan Duan</strong>, Undergraduate Student at Jilin University.</li>
