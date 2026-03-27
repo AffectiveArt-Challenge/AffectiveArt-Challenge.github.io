@@ -947,10 +947,20 @@
         .footer-content {
             font-size: 0.9rem;
             color: #999;
+            line-height: 1.8;
         }
 
         .footer-content strong {
             color: #fff;
+        }
+
+        .footer-content a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .footer-content a:hover {
+            color: var(--color-accent);
         }
 
         /* Section Backgrounds */
@@ -1140,7 +1150,7 @@
                 </h1>
                 <p class="hero-desc">Fine-Grained Emotion Understanding<br>&amp; Generation in Artistic Images</p>
                 <div class="hero-actions">
-                    <a href="#tracks" class="btn btn-primary">Explore Challenge</a>
+                    <a href="images/poster.png" download class="btn btn-primary">Download Poster</a>
                     <a href="https://huggingface.co/datasets/printblue/EmoArt-130k" target="_blank" class="btn btn-secondary">Access Dataset</a>
                 </div>
             </div>
@@ -1207,6 +1217,12 @@
 
                 <p style="color: var(--color-accent); font-weight: 700; background: var(--color-accent-light); padding: 12px 18px; border-radius: var(--radius); border-left: 4px solid var(--color-accent);">
                     🏆 Special Award: The top 2 performing teams from Track 1 and the top 1 performing team from Track 2 will be invited to submit papers recommended to the ACM Multimedia 2026 main conference.
+                </p>
+
+                <!-- Added Contact Email line here -->
+                <p style="margin-top: 25px; margin-bottom: 25px; font-weight: 500;">
+                    For any inquiries regarding the challenge, please contact the organizing committee at 
+                    <a href="mailto:affectiveartchallenge2026@gmail.com">affectiveartchallenge2026@gmail.com</a>.
                 </p>
                 
                 <h3>Be Part of the Future</h3>
@@ -1560,7 +1576,8 @@
     <footer>
         <div class="footer-content">
             &copy; Copyright <strong>AffectiveArt Challenge 2026</strong>. All Rights Reserved<br>
-            ACM Multimedia 2026 Grand Challenge &nbsp;|&nbsp; Rio de Janeiro, Brazil
+            ACM Multimedia 2026 Grand Challenge &nbsp;|&nbsp; Rio de Janeiro, Brazil<br>
+            Contact us: <a href="mailto:affectiveartchallenge2026@gmail.com">affectiveartchallenge2026@gmail.com</a>
         </div>
     </footer>
 
