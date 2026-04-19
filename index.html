@@ -762,7 +762,7 @@
         
         .news-banner-inner {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: var(--spacing-md);
             max-width: 1200px;
             margin: 0 auto;
@@ -775,6 +775,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin: 0;
+            margin-top: 4px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -800,6 +801,9 @@
         .news-banner-content {
             font-size: 0.95rem;
             color: var(--color-primary);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
         
         .news-date {
@@ -1179,8 +1183,14 @@
         <div class="news-banner-inner slide-in-left">
             <div class="news-banner-title">News</div>
             <div class="news-banner-content">
-                <span class="news-date">[March 27, 2026]</span>
-                Registration for the AffectiveArt Challenge 2026 is officially open! Check the <a href="#rules">instructions</a> and <a href="#registration">register your team here</a>.
+                <div>
+                    <span class="news-date" style="color: #c53030;">[Update]</span>
+                    <strong style="color: #c53030;">Due to technical reasons, the release of our test set has been postponed to May 1, while all other dates remain unchanged.</strong>
+                </div>
+                <div>
+                    <span class="news-date">[March 27, 2026]</span>
+                    Registration for the AffectiveArt Challenge 2026 is officially open! Check the <a href="#rules">instructions</a> and <a href="#registration">register your team here</a>.
+                </div>
             </div>
         </div>
     </div>
@@ -1384,7 +1394,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">Test Set Released</th>
-                                <td>April 20, 2026</td>
+                                <td><s style="color: #c53030; margin-right: 10px;">April 20, 2026</s> <span style="color: #c53030; font-weight: bold;">May 1, 2026</span></td>
                             </tr>
                             <tr>
                                 <th scope="row">Results Submission Open</th>
@@ -1462,7 +1472,7 @@
                     </li>
                     <li>
                         <strong>Step 3: Wait for the Test Set</strong><br>
-                        We will construct a <strong>hidden set of 2,000 items</strong> specifically for testing your model's real-world affective capabilities. The detailed evaluation metrics, testing modalities, and the test set will be officially released on <strong>April 20, 2026</strong>.
+                        We will construct a <strong>hidden set of 2,000 items</strong> specifically for testing your model's real-world affective capabilities. The detailed evaluation metrics, testing modalities, and the test set will be officially released on <strong>May 1, 2026</strong>.
                     </li>
                 </ul>
             </div>
